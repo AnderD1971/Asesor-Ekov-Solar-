@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Ekov Solar - Asesor Solar Inteligente">
+    <title>Ekov Solar - Asesor Solar Inteligente</title>
+    
+    <style>
+        /* ========== ESTILOS GENERALES ========== */
+        :root {
+            --primary: #FFB300;
+            --primary-dark: #F57C00;
+            --secondary: #1A237E;
+            --secondary-light: #283593;
+            --accent: #25D366;
+            --accent-dark: #128C7E;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --gray: #757575;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius: 15px;
+            --radius-sm: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* ========== HEADER ========== */
+        .main-header {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            color: white;
+        }
+        
+        /* ========== BADGES ========== */
+        .partner-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .direct-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: none;
+        }
+        
+        /* ========== NAVEGACIÓN ========== */
+        .nav-tabs {
+            display: flex;
+            background: var(--light);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            color: var(--secondary);
+            border-bottom: 3px solid var(--primary);
+            background: linear-gradient(to bottom, rgba(255,179,0,0.1), transparent);
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 0;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* ========== CALCULADORA ========== */
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .card-sector {
+            background: var(--white);
+            border: 2px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .card-sector:hover {
+            border-color: var(--primary);
+            background: #fffcf0;
+            transform: translateY(-2px);
+        }
+        
+        .device-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        input[type="number"] {
+            width: 70px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        /* ========== HERO ========== */
+        .hero {
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #fff8e1 0%, #e3f2fd 100%);
+            text-align: center;
+            position: relative;
+        }
+        
+        /* ========== TIENDA ========== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f9ff, #f0fff4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 60px;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        /* ========== BOTONES ========== */
+        .btn-main {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: var(--radius-sm);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-main:hover {
+            background: var(--primary-dark);
+        }
+        
+        .whatsapp-button {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s ease;
+            width: 100%;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .whatsapp-button:hover {
+            background-color: var(--accent-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-copy {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-copy:hover {
+            background: var(--secondary-light);
+        }
+        
+        /* ========== RESULTADOS ========== */
+        .result-box {
+            text-align: center;
+            padding: 25px;
+            background: #f9f9f9;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+        
+        .tech-data {
+            font-size: 0.9em;
+            color: var(--gray);
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+        }
+        
+        /* ========== CUADROS INFORMATIVOS ========== */
+        .partner-info-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 2px dashed #4CAF50;
+            border-radius: var(--radius);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .direct-info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f1f8ff 100%);
+            border: 2px dashed var(--secondary);
+            border-radius: var(--radius);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        /* ========== MODAL NO INTRUSIVO DE ENLACE ========== */
+        .link-saver-card {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            animation: slideIn 0.4s ease;
+        }
+        
+        .link-saver-card h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .link-saver-card p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .link-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--light);
+            padding: 10px 15px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+        }
+        
+        .link-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--dark);
+            outline: none;
+        }
+        
+        .link-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .close-link-saver {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* ========== LOADING ========== */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ========== FOOTER ========== */
+        .main-footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 800px;
+                margin: 20px auto;
+                border-radius: var(--radius);
+                overflow: hidden;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .app-container {
+                max-width: 1000px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">☀️</div>
+                    <div>
+                        <div class="logo-text">EKOV SOLAR</div>
+                        <div class="logo-subtitle">Asesor Solar Inteligente</div>
+                    </div>
+                </div>
+                <div class="partner-badge" id="partnerBadge"></div>
+                <div class="direct-badge" id="directBadge">📱 Visita Directa</div>
+            </div>
+        </header>
+        
+        <!-- NAVEGACIÓN -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="calculator">📊 Calculadora</button>
+            <button class="nav-tab" data-tab="store">🏪 Tienda</button>
+            <button class="nav-tab" data-tab="catalog">📋 Catálogo</button>
+        </nav>
+        
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            <!-- CALCULADORA -->
+            <div id="calculator-tab" class="tab-content active">
+                <div id="step1" class="step active">
+                    <div class="hero">
+                        <h1 style="color: var(--secondary); margin-bottom: 15px;">Asesor Solar Inteligente</h1>
+                        <p style="color: var(--gray); margin-bottom: 25px;">Seleccione su área de trabajo</p>
+                        
+                        <!-- INFO QR ALIADO -->
+                        <div id="partnerInfo" class="partner-info-box">
+                            <h4>🤝 Visitando desde</h4>
+                            <p id="partnerName" style="font-weight: bold; color: var(--secondary);"></p>
+                            <p style="font-size: 0.9em; color: #666;" id="partnerLocation"></p>
+                        </div>
+                        
+                        <!-- INFO TRÁFICO DIRECTO -->
+                        <div id="directInfo" class="direct-info-box">
+                            <h4>📱 Visita Directa</h4>
+                            <p style="font-weight: bold; color: var(--secondary);">Bienvenido a Ekov Solar</p>
+                        </div>
+                        
+                        <!-- TARJETA GUARDAR ENLACE (SOLO APARECE EN QR) -->
+                        <div id="linkSaverCard" class="link-saver-card" style="display: none;">
+                            <button class="close-link-saver" onclick="closeLinkSaver()">✕</button>
+                            <h4>🔗 Guarda este enlace</h4>
+                            <p>Guarda este enlace para acceder rápidamente en el futuro:</p>
+                            <div class="link-box">
+                                <input type="text" id="appLinkField" readonly value="">
+                            </div>
+                            <div class="link-actions">
+                                <button class="btn-copy" onclick="copyAppLink()">
+                                    📋 Copiar enlace
+                                </button>
+                                <button class="btn-outline" onclick="sendLinkToSelf()">
+                                    📲 Enviarme por WhatsApp
+                                </button>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">
+                                También recibirás este enlace por WhatsApp de nuestro aliado.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- SECTORES -->
+                    <div style="padding: 20px;">
+                        <div class="card-sector" onclick="initApp('hogar')">
+                            <span style="font-size:30px; margin-right:15px">🏠</span>
+                            <div><strong>Hogar / Apartamento</strong><br><small style="color: var(--gray);">Residencial</small></div>
+                        </div>
+                        <div class="card-sector" onclick="initApp('turismo')">
+                            <span style="font-size:30px; margin-right:15px">🏨</span>
+                            <div><strong>Hoteles y Posadas</strong><br><small style="color: var(--gray);">Turismo</small></div>
+                        </div>
+                        <div class="card-sector" onclick="initApp('comercio')">
+                            <span style="font-size:30px; margin-right:15px">🏢</span>
+                            <div><strong>Comercio / Oficina</strong><br><small style="color: var(--gray);">Negocios</small></div>
+                        </div>
+                        <div class="card-sector" onclick="initApp('agro')">
+                            <span style="font-size:30px; margin-right:15px">🚜</span>
+                            <div><strong>Agro / Fincas</strong><br><small style="color: var(--gray);">Agricultura</small></div>
+                        </div>
+                        <div class="card-sector" onclick="initApp('telecom')">
+                            <span style="font-size:30px; margin-right:15px">📡</span>
+                            <div><strong>Telecom / Seguridad</strong><br><small style="color: var(--gray);">Comunicaciones</small></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PASO 2: INGRESAR CANTIDADES -->
+                <div id="step2" class="step">
+                    <div style="padding: 20px;">
+                        <h3 style="color: var(--secondary); margin-bottom: 20px;">Detalle de Dispositivos</h3>
+                        <div id="itemsContainer"></div>
+                        <button class="btn-main" onclick="calculate()" style="margin-top:25px;">GENERAR RECOMENDACIÓN</button>
+                        <button onclick="showStep(1)" style="width:100%; background:none; border:none; margin-top:15px; color:var(--gray); cursor:pointer;">← Regresar</button>
+                    </div>
+                </div>
+                
+                <!-- PASO 3: RESULTADO -->
+                <div id="step3" class="step">
+                    <div style="padding: 20px;">
+                        <div class="result-box">
+                            <div class="tech-data" id="cons-info"></div>
+                            <p style="margin:10px 0; font-weight:600;">SU SOLUCIÓN IDEAL ES:</p>
+                            <h2 id="kit-name" style="color:var(--secondary); margin:15px 0; font-size: 28px;"></h2>
+                            <p id="kit-desc" style="font-size: 1em; color: #444;"></p>
+                        </div>
+                        <div style="display: grid; gap: 10px; margin-top: 20px;">
+                            <button class="nav-tab" onclick="switchTab('store')" style="background: var(--primary); color: var(--dark); border: none;">🛒 VER TIENDA</button>
+                            <button onclick="sendWA()" class="whatsapp-button">💬 Enviar Consulta</button>
+                            <button onclick="resetCalculator()" style="width:100%; background:none; border:1px solid #ddd; padding:12px; color:var(--gray); border-radius:var(--radius-sm);">🔄 Nueva Consulta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TIENDA -->
+            <div id="store-tab" class="tab-content">
+                <div class="hero">
+                    <h1 style="color: var(--secondary); margin-bottom: 15px;">Tienda Ekov Solar</h1>
+                    <p style="color: var(--gray);">Productos para todos los sectores</p>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button class="category-btn active" data-category="all">Todos</button>
+                        <button class="category-btn" data-category="kits">Kits Solares</button>
+                        <button class="category-btn" data-category="bombas">Bombas</button>
+                        <button class="category-btn" data-category="paneles">Paneles</button>
+                    </div>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <div class="loading" id="loadingState"><div class="loader"></div><p>Cargando productos...</p></div>
+                </div>
+            </div>
+            
+            <!-- CATÁLOGO WHATSAPP -->
+            <div id="catalog-tab" class="tab-content">
+                <div style="padding: 20px;">
+                    <h2 style="color: var(--secondary); margin-bottom: 20px;">Catálogo WhatsApp Business</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Productos disponibles</p>
+                    <div id="whatsappCatalog" style="margin-top: 20px;"><div class="loading"><div class="loader"></div><p>Cargando...</p></div></div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <h3>EKOV SOLAR © 2024</h3>
+                <p style="margin: 10px 0;">Asesor Solar Inteligente</p>
+                <p>📞 WhatsApp: +58 412 839 9000</p>
+                <p>✉️ info@ekovsolar.com.ve</p>
+                <div id="footerPartnerInfo" class="footer-info">
+                    <p style="margin: 5px 0;">🤝 <strong id="footerPartnerName">-</strong></p>
+                    <p style="margin: 0; font-size:0.8rem;" id="footerPartnerLocation">-</p>
+                </div>
+                <div id="footerDirectInfo" class="footer-info">
+                    <p style="margin: 5px 0;">📱 Visita Directa</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ================== CONFIGURACIÓN ==================
+        const WHATSAPP_NUMBER = '584128399000';  // Número central de WhatsApp Business
+        const COMPANY_NAME = 'Ekov Solar';
+        const APP_URL = window.location.origin + window.location.pathname; // URL base de la app
+        
+        // ================== BASE DE DATOS DE ALIADOS ==================
+        const PARTNERS_DATABASE = {
+            'T001': { nombre: 'Ferretería El Sol', ubicacion: 'Caracas, Av. Principal', contacto: '+58 412 111 2233', activo: true },
+            'T002': { nombre: 'Distribuidora Energética', ubicacion: 'Maracaibo, Centro Comercial', contacto: '+58 414 555 6677', activo: true },
+            'T003': { nombre: 'Tecnología Solar Plus', ubicacion: 'Valencia, Zona Industrial', contacto: '+58 416 888 9900', activo: true },
+            'T004': { nombre: 'Tienda Eléctrica San Martín', ubicacion: 'Barquisimeto, Centro', contacto: '+58 425 123 4567', activo: true },
+            'T005': { nombre: 'Energía Renovable C.A.', ubicacion: 'Mérida, Av. Las Américas', contacto: '+58 427 987 6543', activo: true }
+        };
+
+        // ================== ESTADO GLOBAL ==================
+        let trafficSource = {
+            type: 'direct', // 'partner' o 'direct'
+            partnerCode: null,
+            partnerData: null,
+            welcomeMessageSent: false
+        };
+        
+        let selectedSector = '';
+        let totalW = 0, totalKWh = 0;
+        let artefactosSeleccionados = [];
+        let recommendedKit = '', kitWhatsappId = '', kitDescription = '';
+
+        // ================== INICIALIZACIÓN ==================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Asesor Solar Inteligente iniciado');
+            detectTrafficSource();
+            initNavigation();
+            initStore();
+            loadWhatsAppCatalog();
+        });
+
+        // ================== DETECCIÓN DE FUENTE DE TRÁFICO ==================
+        function detectTrafficSource() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const partnerCode = urlParams.get('partner') || urlParams.get('aliado') || urlParams.get('ref') || urlParams.get('p');
+            
+            if (partnerCode && PARTNERS_DATABASE[partnerCode]) {
+                // 🟢 CASO 1: VIENE DE QR DE ALIADO
+                trafficSource = {
+                    type: 'partner',
+                    partnerCode: partnerCode,
+                    partnerData: PARTNERS_DATABASE[partnerCode],
+                    welcomeMessageSent: false
+                };
+                localStorage.setItem('ekov_source_type', 'partner');
+                localStorage.setItem('ekov_partner_code', partnerCode);
+                
+                // Enviar mensaje de bienvenida a WhatsApp Business
+                sendWelcomeMessage();
+                
+                // Mostrar tarjeta para guardar enlace
+                showLinkSaverCard();
+                
+            } else {
+                // 🔵 CASO 2: TRÁFICO DIRECTO
+                trafficSource = {
+                    type: 'direct',
+                    partnerCode: null,
+                    partnerData: null,
+                    welcomeMessageSent: false
+                };
+                localStorage.setItem('ekov_source_type', 'direct');
+            }
+            
+            // Actualizar UI según la fuente
+            updateSourceUI();
+        }
+
+        // ================== ENVÍO DE MENSAJE DE BIENVENIDA A WHATSAPP BUSINESS ==================
+        function sendWelcomeMessage() {
+            if (trafficSource.type !== 'partner' || trafficSource.welcomeMessageSent) return;
+            
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            const appLink = `${APP_URL}?partner=${trafficSource.partnerCode}`;
+            
+            let message = `🆕 *NUEVO CLIENTE DESDE QR DE ALIADO*\n\n`;
+            message += `📅 Fecha: ${fecha}\n⏰ Hora: ${hora}\n\n`;
+            message += `🏪 *Aliado:* ${trafficSource.partnerData.nombre}\n`;
+            message += `📍 *Ubicación:* ${trafficSource.partnerData.ubicacion}\n`;
+            message += `🆔 *Código:* ${trafficSource.partnerCode}\n\n`;
+            message += `📲 *ENLACE PARA EL CLIENTE:*\n${appLink}\n\n`;
+            message += `_Reenvíe este enlace al cliente para que acceda al Asesor Solar._`;
+            
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            
+            trafficSource.welcomeMessageSent = true;
+            console.log('✅ Mensaje de bienvenida enviado a WhatsApp Business');
+        }
+
+        // ================== MOSTRAR TARJETA PARA GUARDAR ENLACE ==================
+        function showLinkSaverCard() {
+            const card = document.getElementById('linkSaverCard');
+            const linkField = document.getElementById('appLinkField');
+            if (card && linkField) {
+                const fullLink = `${APP_URL}?partner=${trafficSource.partnerCode}`;
+                linkField.value = fullLink;
+                card.style.display = 'block';
+            }
+        }
+
+        // ================== CERRAR TARJETA ==================
+        window.closeLinkSaver = function() {
+            document.getElementById('linkSaverCard').style.display = 'none';
+        };
+
+        // ================== COPIAR ENLACE AL PORTAPAPELES ==================
+        window.copyAppLink = function() {
+            const linkField = document.getElementById('appLinkField');
+            linkField.select();
+            linkField.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(linkField.value).then(() => {
+                alert('✅ Enlace copiado al portapapeles');
+            }).catch(() => {
+                document.execCommand('copy');
+                alert('✅ Enlace copiado');
+            });
+        };
+
+        // ================== ENVIAR ENLACE A SÍ MISMO POR WHATSAPP ==================
+        window.sendLinkToSelf = function() {
+            const link = document.getElementById('appLinkField').value;
+            const message = `Mi enlace de Ekov Solar: ${link}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(message)}`; // Abre WhatsApp sin número destino, para que el usuario elija
+            window.open(url, '_blank');
+        };
+
+        // ================== ACTUALIZAR UI SEGÚN FUENTE ==================
+        function updateSourceUI() {
+            // Ocultar todos
+            document.getElementById('partnerBadge').style.display = 'none';
+            document.getElementById('directBadge').style.display = 'none';
+            document.getElementById('partnerInfo').style.display = 'none';
+            document.getElementById('directInfo').style.display = 'none';
+            document.getElementById('footerPartnerInfo').style.display = 'none';
+            document.getElementById('footerDirectInfo').style.display = 'none';
+            
+            if (trafficSource.type === 'partner') {
+                // Mostrar UI de aliado
+                document.getElementById('partnerBadge').style.display = 'block';
+                document.getElementById('partnerBadge').textContent = `🤝 ${trafficSource.partnerCode}`;
+                
+                document.getElementById('partnerInfo').style.display = 'block';
+                document.getElementById('partnerName').textContent = trafficSource.partnerData.nombre;
+                document.getElementById('partnerLocation').textContent = trafficSource.partnerData.ubicacion;
+                
+                document.getElementById('footerPartnerInfo').style.display = 'block';
+                document.getElementById('footerPartnerName').textContent = trafficSource.partnerData.nombre;
+                document.getElementById('footerPartnerLocation').textContent = trafficSource.partnerData.ubicacion;
+                
+            } else {
+                // Mostrar UI de tráfico directo
+                document.getElementById('directBadge').style.display = 'block';
+                document.getElementById('directInfo').style.display = 'block';
+                document.getElementById('footerDirectInfo').style.display = 'block';
+            }
+        }
+
+        // ================== CATÁLOGO DE CONSUMO ==================
+        const catalog = {
+            hogar: [
+                {n: 'Aire acondicionado habitación', w: 1200, h: 8},
+                {n: 'Nevera familiar', w: 250, h: 12},
+                {n: 'Bombillos LED interiores', w: 10, h: 6},
+                {n: 'Televisor 55"', w: 150, h: 5},
+                {n: 'Computadora', w: 200, h: 6},
+                {n: 'Ventilador techo', w: 75, h: 8}
+            ],
+            turismo: [
+                {n: 'Habitaciones con A/A', w: 1200, h: 8},
+                {n: 'Nevera bar', w: 300, h: 12},
+                {n: 'Bombillos LED áreas comunes', w: 20, h: 10},
+                {n: 'Bomba agua cisterna', w: 750, h: 2},
+                {n: 'Ascensor pequeño', w: 1500, h: 4},
+                {n: 'Calentador eléctrico', w: 1500, h: 3}
+            ],
+            comercio: [
+                {n: 'A/A oficina', w: 2000, h: 8},
+                {n: 'Nevera exhibidora', w: 400, h: 12},
+                {n: 'Iluminación LED', w: 200, h: 10},
+                {n: 'Computadoras', w: 300, h: 8},
+                {n: 'Impresora', w: 500, h: 4},
+                {n: 'Sistema sonido', w: 200, h: 6}
+            ],
+            agro: [
+                {n: 'Bomba riego', w: 1000, h: 4},
+                {n: 'Cerca eléctrica', w: 50, h: 24},
+                {n: 'Refrigerador', w: 600, h: 12},
+                {n: 'Iluminación exterior', w: 200, h: 10},
+                {n: 'Ordeño eléctrico', w: 750, h: 3},
+                {n: 'Ventiladores granja', w: 300, h: 8}
+            ],
+            telecom: [
+                {n: 'Radio enlace', w: 150, h: 24},
+                {n: 'Cámaras IP', w: 30, h: 24},
+                {n: 'Router/switch', w: 50, h: 24},
+                {n: 'UPS', w: 500, h: 24},
+                {n: 'Repetidor WiFi', w: 25, h: 24},
+                {n: 'Monitoreo remoto', w: 100, h: 24}
+            ]
+        };
+
+        // ================== PRODUCTOS DE LA TIENDA ==================
+        const storeProducts = [
+            {id: 'ekov1000', name: 'EKOV RESCUE 1000', category: 'kits', price: 12500, whatsappId: 'EKOV1000'},
+            {id: 'ekov3000', name: 'EKOV COMFORT 3000', category: 'kits', price: 28900, whatsappId: 'EKOV3000'},
+            {id: 'ekov5000', name: 'EKOV INDEPENDENCE 5000', category: 'kits', price: 45200, whatsappId: 'EKOV5000'},
+            {id: 'ekov12000', name: 'EKOV INDUSTRIAL 12000', category: 'kits', price: 105000, whatsappId: 'EKOV12000'},
+            {id: 'ekov15000', name: 'EKOV INDUSTRIAL 15000', category: 'kits', price: 132000, whatsappId: 'EKOV15000'}
+        ];
+
+        // ================== NAVEGACIÓN ==================
+        function initNavigation() {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+        
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+        }
+
+        // ================== CALCULADORA ==================
+        function initApp(sector) {
+            selectedSector = sector;
+            let html = '';
+            catalog[sector].forEach((item, i) => {
+                html += `<div class="device-row">
+                    <span>${item.n} <small>(${item.w}W)</small></span>
+                    <input type="number" id="input-${i}" value="0" min="0" max="99">
+                </div>`;
+            });
+            document.getElementById('itemsContainer').innerHTML = html;
+            showStep(2);
+        }
+        
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(d => d.classList.remove('active'));
+            document.getElementById(`step${stepNum}`).classList.add('active');
+            window.scrollTo(0,0);
+        }
+        
+        function calculate() {
+            totalW = 0; totalKWh = 0; artefactosSeleccionados = [];
+            catalog[selectedSector].forEach((item, i) => {
+                const qty = parseInt(document.getElementById(`input-${i}`).value) || 0;
+                if(qty > 0) {
+                    totalW += qty * item.w;
+                    totalKWh += (qty * item.w * item.h) / 1000;
+                    artefactosSeleccionados.push({nombre: item.n, cantidad: qty});
+                }
+            });
+            if (totalW === 0) { alert("Ingrese cantidades"); return; }
+            
+            if (totalW <= 1000) { recommendedKit = "EKOV RESCUE 1000"; kitWhatsappId = "EKOV1000"; kitDescription = "Ideal para iluminación y dispositivos esenciales"; }
+            else if (totalW <= 3000) { recommendedKit = "EKOV COMFORT 3000"; kitWhatsappId = "EKOV3000"; kitDescription = "Perfecto para confort en hogares pequeños"; }
+            else if (totalW <= 5000) { recommendedKit = "EKOV INDEPENDENCE 5000"; kitWhatsappId = "EKOV5000"; kitDescription = "Excelente para pequeñas empresas"; }
+            else if (totalW <= 12000) { recommendedKit = "EKOV INDUSTRIAL 12000"; kitWhatsappId = "EKOV12000"; kitDescription = "Industrial para grandes consumos"; }
+            else { recommendedKit = "EKOV INDUSTRIAL 15000"; kitWhatsappId = "EKOV15000"; kitDescription = "Industrial de alta potencia"; }
+            
+            document.getElementById('cons-info').innerHTML = `📊 Carga Máxima: ${totalW}W | Consumo: ${totalKWh.toFixed(1)} kWh/día`;
+            document.getElementById('kit-name').innerText = recommendedKit;
+            document.getElementById('kit-desc').innerText = kitDescription;
+            showStep(3);
+        }
+        
+        function resetCalculator() { 
+            selectedSector = ''; totalW = 0; totalKWh = 0; artefactosSeleccionados = []; showStep(1); 
+        }
+
+        // ================== WHATSAPP CONSULTA ==================
+        function sendWA() {
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            const sectorNames = { 'hogar': 'Hogar', 'turismo': 'Hoteles', 'comercio': 'Comercio', 'agro': 'Agro', 'telecom': 'Telecom' };
+            
+            let dispositivos = '';
+            artefactosSeleccionados.forEach(i => dispositivos += `• ${i.nombre}: ${i.cantidad}\n`);
+            
+            const catalogoLink = `https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
+            
+            let msg = `🔋 *NUEVA CONSULTA - ASESOR SOLAR*\n\n`;
+            msg += `📅 ${fecha}\n⏰ ${hora}\n\n`;
+            
+            if (trafficSource.type === 'partner') {
+                msg += `🟢 *QR ALIADO:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            } else {
+                msg += `🔵 *TRÁFICO DIRECTO*\n\n`;
+            }
+            
+            msg += `🏢 *Sector:* ${sectorNames[selectedSector]}\n`;
+            msg += `⚡ *Equipo:* ${recommendedKit}\n`;
+            msg += `📊 *Consumo:* ${totalKWh.toFixed(1)} kWh/día\n`;
+            msg += `🆔 *Código:* ${kitWhatsappId}\n`;
+            msg += `🔗 *Catálogo:* ${catalogoLink}\n\n`;
+            msg += `📋 *Dispositivos:*\n${dispositivos}\n`;
+            msg += `📱 *Enlace:* ${catalogoLink}\n\n`;
+            msg += `_Generado automáticamente_`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ================== TIENDA ==================
+        function initStore() {
+            renderStoreProducts(storeProducts);
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterStoreProducts(this.dataset.category);
+                });
+            });
+        }
+        
+        function renderStoreProducts(products) {
+            const grid = document.getElementById('productGrid');
+            const loading = document.getElementById('loadingState');
+            if (loading) loading.style.display = 'none';
+            grid.innerHTML = '';
+            products.forEach(p => {
+                grid.innerHTML += `<div class="product-card">
+                    <div class="product-image">☀️</div>
+                    <div class="product-info">
+                        <h3 class="product-title">${p.name}</h3>
+                        <div class="product-price">$${p.price.toLocaleString()}</div>
+                        <button class="whatsapp-button" onclick="consultarProducto('${p.name}', '${p.whatsappId}', ${p.price})">💬 Consultar</button>
+                    </div>
+                </div>`;
+            });
+        }
+        
+        function filterStoreProducts(category) {
+            if (category === 'all') renderStoreProducts(storeProducts);
+            else renderStoreProducts(storeProducts.filter(p => p.category === category));
+        }
+
+        // ================== CONSULTAR PRODUCTO ==================
+        function consultarProducto(name, id, price) {
+            let msg = `🛒 *CONSULTA DE PRODUCTO*\n\n`;
+            if (trafficSource.type === 'partner') {
+                msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            }
+            msg += `🏷️ *Producto:* ${name}\n💰 *Precio:* $${price.toLocaleString()}\n🆔 *Código:* ${id}\n\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${id}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ================== CATÁLOGO WHATSAPP ==================
+        function loadWhatsAppCatalog() {
+            setTimeout(() => {
+                const cat = document.getElementById('whatsappCatalog');
+                if (!cat) return;
+                const products = [
+                    { name: 'Inversor Híbrido 5000W', code: 'INV5000', category: 'inversores', price: 'Consultar' },
+                    { name: 'Batería Litio 5kWh', code: 'BATLIT5', category: 'baterias', price: 'Consultar' },
+                    { name: 'Controlador MPPT 100A', code: 'MPPT100', category: 'controladores', price: 'Consultar' }
+                ];
+                let html = '<div style="display:grid; gap:15px;">';
+                products.forEach(p => {
+                    html += `<div style="background:white; padding:15px; border-radius:10px; border:1px solid #ddd;">
+                        <div><strong>${p.name}</strong><br><small>${p.category}</small></div>
+                        <div><span style="color:var(--primary);">${p.price}</span></div>
+                        <button onclick="consultarCatalogo('${p.name}', '${p.code}')" style="width:100%; background:var(--accent); color:white; border:none; padding:10px; margin-top:10px; border-radius:6px;">💬 Consultar</button>
+                    </div>`;
+                });
+                html += '</div>';
+                cat.innerHTML = html;
+            }, 1000);
+        }
+
+        function consultarCatalogo(name, code) {
+            let msg = `📋 *CONSULTA DE CATÁLOGO*\n\n`;
+            if (trafficSource.type === 'partner') {
+                msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            }
+            msg += `🏷️ *Producto:* ${name}\n🆔 *Código:* ${code}\n\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${code}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Exponer funciones globales
+        window.initApp = initApp;
+        window.calculate = calculate;
+        window.showStep = showStep;
+        window.resetCalculator = resetCalculator;
+        window.sendWA = sendWA;
+        window.switchTab = switchTab;
+        window.consultarProducto = consultarProducto;
+        window.consultarCatalogo = consultarCatalogo;
+    </script>
+</body>
+</html>
