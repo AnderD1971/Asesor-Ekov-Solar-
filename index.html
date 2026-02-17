@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Ekov Solar - Asesor Solar Inteligente">
+    <meta name="description" content="Ekov Solar - Asesor Solar Inteligente con Carrito de Compras">
     <title>Ekov Solar - Asesor Solar Inteligente</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FFB300">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* ========== ESTILOS GENERALES ========== */
         :root {
             --primary: #FFB300;
             --primary-dark: #F57C00;
@@ -54,12 +57,10 @@
             position: relative;
         }
         
-        /* ========== HEADER ========== */
         .main-header {
             background: var(--secondary);
             color: var(--white);
-            padding: 20px;
-            text-align: center;
+            padding: 10px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -69,8 +70,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -89,6 +89,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
+            color: var(--dark);
         }
         
         .logo-text {
@@ -103,11 +104,37 @@
             color: white;
         }
         
-        /* ========== BADGES ========== */
-        .partner-badge {
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .cart-count {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -5px;
+            right: -10px;
+            background: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .partner-badge {
             background: var(--primary);
             color: var(--dark);
             padding: 4px 10px;
@@ -118,10 +145,7 @@
         }
         
         .direct-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--secondary);
+            background: var(--secondary-light);
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
@@ -130,16 +154,34 @@
             display: none;
         }
         
-        /* ========== NAVEGACIÓN ========== */
+        .social-header {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .social-header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: opacity 0.2s;
+        }
+        
+        .social-header a:hover {
+            opacity: 0.8;
+        }
+        
         .nav-tabs {
             display: flex;
             background: var(--light);
             border-bottom: 2px solid var(--primary);
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
         
         .nav-tab {
-            flex: 1;
-            padding: 15px;
+            flex: 0 0 auto;
+            padding: 12px 15px;
             text-align: center;
             background: none;
             border: none;
@@ -147,6 +189,7 @@
             color: var(--gray);
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         
         .nav-tab.active {
@@ -169,7 +212,6 @@
             display: block;
         }
         
-        /* ========== CALCULADORA ========== */
         .step {
             display: none;
             animation: fadeIn 0.3s ease;
@@ -206,16 +248,19 @@
             border-bottom: 1px solid #eee;
         }
         
-        input[type="number"] {
-            width: 70px;
-            padding: 10px;
-            border-radius: var(--radius-sm);
-            border: 1px solid #ddd;
-            text-align: center;
-            font-size: 16px;
+        .device-row label {
+            font-weight: 500;
+            color: var(--dark);
         }
         
-        /* ========== HERO ========== */
+        .device-row select, .device-row input {
+            width: 140px;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        
         .hero {
             padding: 30px 20px;
             background: linear-gradient(135deg, #fff8e1 0%, #e3f2fd 100%);
@@ -223,7 +268,84 @@
             position: relative;
         }
         
-        /* ========== TIENDA ========== */
+        /* Estilos para enlaces de video */
+        .video-tutorial-link {
+            display: inline-block;
+            margin: 10px auto 0;
+            padding: 8px 20px;
+            background: white;
+            border-radius: 50px;
+            border: 1px solid #ff0000;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+        
+        .video-tutorial-link:hover {
+            background: #fff0f0;
+            transform: translateY(-2px);
+        }
+        
+        .video-tutorial-link i {
+            color: #ff0000;
+            margin-right: 5px;
+        }
+        
+        .tutorial-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tutorial-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .tutorial-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+        
+        .tutorial-info {
+            padding: 15px;
+        }
+        
+        .tutorial-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .tutorial-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tutorial-link:hover {
+            text-decoration: underline;
+        }
+        
         .product-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -237,6 +359,8 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .product-card:hover {
@@ -247,6 +371,7 @@
         .product-image {
             width: 100%;
             height: 200px;
+            object-fit: cover;
             background: linear-gradient(45deg, #f0f9ff, #f0fff4);
             display: flex;
             align-items: center;
@@ -255,8 +380,17 @@
             font-size: 60px;
         }
         
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .product-info {
             padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .product-title {
@@ -266,6 +400,13 @@
             color: var(--dark);
         }
         
+        .product-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
         .product-price {
             font-size: 1.5rem;
             font-weight: 700;
@@ -273,17 +414,16 @@
             margin-bottom: 15px;
         }
         
-        /* ========== BOTONES ========== */
         .btn-main {
             background: var(--primary);
             color: var(--dark);
             border: none;
-            padding: 15px;
+            padding: 12px;
             width: 100%;
             border-radius: var(--radius-sm);
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             text-transform: uppercase;
             transition: background 0.3s ease;
         }
@@ -296,18 +436,19 @@
             background-color: var(--accent);
             color: var(--white);
             border: none;
-            padding: 15px;
+            padding: 12px;
             border-radius: var(--radius-sm);
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: background 0.3s ease;
             width: 100%;
             text-decoration: none;
             text-align: center;
+            font-size: 14px;
         }
         
         .whatsapp-button:hover {
@@ -318,7 +459,7 @@
             background: transparent;
             border: 2px solid var(--secondary);
             color: var(--secondary);
-            padding: 12px;
+            padding: 10px;
             border-radius: var(--radius-sm);
             font-weight: 600;
             cursor: pointer;
@@ -327,6 +468,7 @@
             justify-content: center;
             gap: 8px;
             transition: all 0.2s;
+            font-size: 14px;
         }
         
         .btn-outline:hover {
@@ -334,24 +476,102 @@
             color: white;
         }
         
-        .btn-copy {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            cursor: pointer;
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        /* Botones de redes sociales en footer */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-button {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+            font-size: 1.2rem;
         }
         
-        .btn-copy:hover {
-            background: var(--secondary-light);
+        .social-button:hover {
+            transform: translateY(-3px);
         }
         
-        /* ========== RESULTADOS ========== */
+        .social-button.facebook:hover {
+            background: #1877f2;
+        }
+        .social-button.instagram:hover {
+            background: #e4405f;
+        }
+        .social-button.youtube:hover {
+            background: #ff0000;
+        }
+        
+        /* Sección de asesoría */
+        .contact-info {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 2px solid var(--primary);
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .contact-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-social a {
+            color: var(--secondary);
+            font-size: 2rem;
+            transition: color 0.2s;
+        }
+        
+        .contact-social a:hover {
+            color: var(--primary);
+        }
+        
         .result-box {
             text-align: center;
             padding: 25px;
@@ -359,6 +579,11 @@
             border: 2px solid var(--primary);
             border-radius: var(--radius);
             margin-bottom: 20px;
+        }
+        
+        /* Ocultar la línea de datos técnicos */
+        #cons-info {
+            display: none;
         }
         
         .tech-data {
@@ -370,7 +595,6 @@
             border-radius: var(--radius-sm);
         }
         
-        /* ========== CUADROS INFORMATIVOS ========== */
         .partner-info-box {
             background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
             border: 2px dashed #4CAF50;
@@ -391,7 +615,6 @@
             display: none;
         }
         
-        /* ========== MODAL NO INTRUSIVO DE ENLACE ========== */
         .link-saver-card {
             background: white;
             border: 2px solid var(--primary);
@@ -401,6 +624,7 @@
             box-shadow: var(--shadow-lg);
             position: relative;
             animation: slideIn 0.4s ease;
+            display: none;
         }
         
         .link-saver-card h4 {
@@ -454,12 +678,161 @@
             color: var(--gray);
         }
         
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            gap: 10px;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        
+        .cart-item-quantity button {
+            background: var(--light);
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .cart-total {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+            border-top: 2px solid var(--primary);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .modal-content h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .modal-content .bank-details {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        .modal-content .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .modal-content .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .modal-content .input-group input[type="text"],
+        .modal-content .input-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .modal-content .input-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .store-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--secondary);
+            text-decoration: underline;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         @keyframes slideIn {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         
-        /* ========== LOADING ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .loading {
             text-align: center;
             padding: 40px;
@@ -481,7 +854,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* ========== FOOTER ========== */
         .main-footer {
             background: var(--dark);
             color: var(--white);
@@ -532,8 +904,19 @@
                         <div class="logo-subtitle">Asesor Solar Inteligente</div>
                     </div>
                 </div>
-                <div class="partner-badge" id="partnerBadge"></div>
-                <div class="direct-badge" id="directBadge">📱 Visita Directa</div>
+                <div class="header-right">
+                    <div class="partner-badge" id="partnerBadge"></div>
+                    <div class="direct-badge" id="directBadge">📱 Visita Directa</div>
+                    <div class="cart-icon" onclick="switchTab('cart')">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    <div class="social-header">
+                        <a href="https://facebook.com/tupagina" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/tupagina" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/tupagina" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
             </div>
         </header>
         
@@ -542,6 +925,9 @@
             <button class="nav-tab active" data-tab="calculator">📊 Calculadora</button>
             <button class="nav-tab" data-tab="store">🏪 Tienda</button>
             <button class="nav-tab" data-tab="catalog">📋 Catálogo</button>
+            <button class="nav-tab" data-tab="asesoria">📞 Asesoría</button>
+            <button class="nav-tab" data-tab="tutorials">📚 Tutoriales</button>
+            <button class="nav-tab" data-tab="cart">🛒 Carrito</button>
         </nav>
         
         <!-- CONTENIDO PRINCIPAL -->
@@ -553,21 +939,29 @@
                         <h1 style="color: var(--secondary); margin-bottom: 15px;">Asesor Solar Inteligente</h1>
                         <p style="color: var(--gray); margin-bottom: 25px;">Seleccione su área de trabajo</p>
                         
-                        <!-- INFO QR ALIADO -->
+                        <!-- Video de bienvenida en la página principal -->
+                        <a href="https://youtu.be/placeholder_bienvenida" target="_blank" class="video-tutorial-link">
+                            <i class="fab fa-youtube"></i> Ver video de bienvenida
+                        </a>
+                        
+                        <!-- Video tutorial específico de la calculadora -->
+                        <a href="https://youtu.be/placeholder_calculadora" target="_blank" class="video-tutorial-link" style="margin-left: 10px;">
+                            <i class="fab fa-youtube"></i> ¿Cómo usar la calculadora?
+                        </a>
+                        
                         <div id="partnerInfo" class="partner-info-box">
                             <h4>🤝 Visitando desde</h4>
                             <p id="partnerName" style="font-weight: bold; color: var(--secondary);"></p>
                             <p style="font-size: 0.9em; color: #666;" id="partnerLocation"></p>
                         </div>
                         
-                        <!-- INFO TRÁFICO DIRECTO -->
                         <div id="directInfo" class="direct-info-box">
                             <h4>📱 Visita Directa</h4>
                             <p style="font-weight: bold; color: var(--secondary);">Bienvenido a Ekov Solar</p>
                         </div>
                         
-                        <!-- TARJETA GUARDAR ENLACE (SOLO APARECE EN QR) -->
-                        <div id="linkSaverCard" class="link-saver-card" style="display: none;">
+                        <!-- TARJETA DE GUARDAR ENLACE (CON OPCIÓN COPIAR) -->
+                        <div id="linkSaverCard" class="link-saver-card">
                             <button class="close-link-saver" onclick="closeLinkSaver()">✕</button>
                             <h4>🔗 Guarda este enlace</h4>
                             <p>Guarda este enlace para acceder rápidamente en el futuro:</p>
@@ -575,12 +969,8 @@
                                 <input type="text" id="appLinkField" readonly value="">
                             </div>
                             <div class="link-actions">
-                                <button class="btn-copy" onclick="copyAppLink()">
-                                    📋 Copiar enlace
-                                </button>
-                                <button class="btn-outline" onclick="sendLinkToSelf()">
-                                    📲 Enviarme por WhatsApp
-                                </button>
+                                <button class="btn-outline btn-small" onclick="copyAppLink()">📋 Copiar</button>
+                                <button class="btn-outline btn-small" onclick="sendLinkToSelf()">📲 Enviarme</button>
                             </div>
                             <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">
                                 También recibirás este enlace por WhatsApp de nuestro aliado.
@@ -588,7 +978,6 @@
                         </div>
                     </div>
                     
-                    <!-- SECTORES -->
                     <div style="padding: 20px;">
                         <div class="card-sector" onclick="initApp('hogar')">
                             <span style="font-size:30px; margin-right:15px">🏠</span>
@@ -610,20 +999,22 @@
                             <span style="font-size:30px; margin-right:15px">📡</span>
                             <div><strong>Telecom / Seguridad</strong><br><small style="color: var(--gray);">Comunicaciones</small></div>
                         </div>
+                        <div class="card-sector" onclick="initApp('bombas')">
+                            <span style="font-size:30px; margin-right:15px">🚰</span>
+                            <div><strong>Bombas Solares</strong><br><small style="color: var(--gray);">Agua y riego</small></div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- PASO 2: INGRESAR CANTIDADES -->
                 <div id="step2" class="step">
                     <div style="padding: 20px;">
-                        <h3 style="color: var(--secondary); margin-bottom: 20px;">Detalle de Dispositivos</h3>
+                        <h3 style="color: var(--secondary); margin-bottom: 20px;">Detalle de Carga</h3>
                         <div id="itemsContainer"></div>
                         <button class="btn-main" onclick="calculate()" style="margin-top:25px;">GENERAR RECOMENDACIÓN</button>
                         <button onclick="showStep(1)" style="width:100%; background:none; border:none; margin-top:15px; color:var(--gray); cursor:pointer;">← Regresar</button>
                     </div>
                 </div>
                 
-                <!-- PASO 3: RESULTADO -->
                 <div id="step3" class="step">
                     <div style="padding: 20px;">
                         <div class="result-box">
@@ -631,6 +1022,7 @@
                             <p style="margin:10px 0; font-weight:600;">SU SOLUCIÓN IDEAL ES:</p>
                             <h2 id="kit-name" style="color:var(--secondary); margin:15px 0; font-size: 28px;"></h2>
                             <p id="kit-desc" style="font-size: 1em; color: #444;"></p>
+                            <div id="storeLinkContainer" style="margin-top: 15px;"></div>
                         </div>
                         <div style="display: grid; gap: 10px; margin-top: 20px;">
                             <button class="nav-tab" onclick="switchTab('store')" style="background: var(--primary); color: var(--dark); border: none;">🛒 VER TIENDA</button>
@@ -646,10 +1038,17 @@
                 <div class="hero">
                     <h1 style="color: var(--secondary); margin-bottom: 15px;">Tienda Ekov Solar</h1>
                     <p style="color: var(--gray);">Productos para todos los sectores</p>
+                    
+                    <!-- Video tutorial de la tienda -->
+                    <a href="https://youtu.be/placeholder_tienda" target="_blank" class="video-tutorial-link">
+                        <i class="fab fa-youtube"></i> Ver tutorial de la tienda
+                    </a>
+                    
                     <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                         <button class="category-btn active" data-category="all">Todos</button>
                         <button class="category-btn" data-category="kits">Kits Solares</button>
-                        <button class="category-btn" data-category="bombas">Bombas</button>
+                        <button class="category-btn" data-category="bombas-superficiales">Bombas Superficiales</button>
+                        <button class="category-btn" data-category="bombas-sumergibles">Bombas Sumergibles</button>
                         <button class="category-btn" data-category="paneles">Paneles</button>
                     </div>
                 </div>
@@ -660,10 +1059,158 @@
             
             <!-- CATÁLOGO WHATSAPP -->
             <div id="catalog-tab" class="tab-content">
-                <div style="padding: 20px;">
-                    <h2 style="color: var(--secondary); margin-bottom: 20px;">Catálogo WhatsApp Business</h2>
+                <div class="hero">
+                    <h2 style="color: var(--secondary); margin-bottom: 15px;">Catálogo WhatsApp Business</h2>
                     <p style="color: var(--gray); margin-bottom: 20px;">Productos disponibles</p>
-                    <div id="whatsappCatalog" style="margin-top: 20px;"><div class="loading"><div class="loader"></div><p>Cargando...</p></div></div>
+                    
+                    <!-- Video tutorial del catálogo -->
+                    <a href="https://youtu.be/placeholder_catalogo" target="_blank" class="video-tutorial-link">
+                        <i class="fab fa-youtube"></i> Ver tutorial del catálogo
+                    </a>
+                </div>
+                <div id="whatsappCatalog" style="margin-top: 20px;"><div class="loading"><div class="loader"></div><p>Cargando...</p></div></div>
+            </div>
+            
+            <!-- ASESORÍA Y PROYECTOS -->
+            <div id="asesoria-tab" class="tab-content">
+                <div class="hero">
+                    <h1 style="color: var(--secondary); margin-bottom: 15px;">📞 Asesoría y Proyectos</h1>
+                    <p style="color: var(--gray);">Soluciones técnicas personalizadas para su proyecto solar</p>
+                    
+                    <!-- Video tutorial de asesoría -->
+                    <a href="https://youtu.be/placeholder_asesoria" target="_blank" class="video-tutorial-link">
+                        <i class="fab fa-youtube"></i> Ver video de asesoría
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <h3>Información de contacto</h3>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@ekovsolar.com.ve">info@ekovsolar.com.ve</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/584128399000">+58 412 839 9000 (WhatsApp)</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="https://wa.me/584128399000">+58 412 839 9000 (Principal)</a>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <a href="https://facebook.com/tupagina" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/tupagina" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/tupagina" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #fff; border-radius: var(--radius-sm); text-align: left;">
+                        <p style="margin-bottom: 10px; font-weight: 600;">Descripción del servicio:</p>
+                        <p style="color: var(--dark); line-height: 1.6;">
+                            Contamos con personal calificado para ofrecer asesoría técnica en proyectos solares de cualquier tamaño. Realizamos evaluaciones, diseñamos proyectos nuevos y optimizamos sistemas existentes. ¿Tiene un proyecto en mente? ¡Contáctenos para una asesoría personalizada!
+                        </p>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+                        Horario de atención: Lunes a Viernes 8am - 5pm
+                    </p>
+                </div>
+            </div>
+            
+            <!-- TUTORIALES -->
+            <div id="tutorials-tab" class="tab-content">
+                <div class="hero">
+                    <h1 style="color: var(--secondary); margin-bottom: 15px;">📚 Tutoriales en video</h1>
+                    <p style="color: var(--gray);">Aprende a usar nuestra aplicación y descubre más sobre energía solar</p>
+                </div>
+                
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_bienvenida/maxresdefault.jpg" alt="Video de bienvenida" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Video de bienvenida</h4>
+                            <p>Conoce Ekov Solar y cómo podemos ayudarte a ahorrar energía.</p>
+                            <a href="https://youtu.be/placeholder_bienvenida" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_calculadora/maxresdefault.jpg" alt="Cómo usar la calculadora" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Cómo usar la calculadora</h4>
+                            <p>Aprende a dimensionar tu sistema solar paso a paso.</p>
+                            <a href="https://youtu.be/placeholder_calculadora" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_tienda/maxresdefault.jpg" alt="Guía de la tienda" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Guía de la tienda</h4>
+                            <p>Descubre cómo comprar productos y añadirlos al carrito.</p>
+                            <a href="https://youtu.be/placeholder_tienda" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_catalogo/maxresdefault.jpg" alt="Catálogo WhatsApp" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Catálogo WhatsApp</h4>
+                            <p>Consulta productos disponibles directamente por WhatsApp.</p>
+                            <a href="https://youtu.be/placeholder_catalogo" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_asesoria/maxresdefault.jpg" alt="Asesoría y proyectos" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Asesoría y proyectos</h4>
+                            <p>Conoce nuestros servicios de asesoría técnica personalizada.</p>
+                            <a href="https://youtu.be/placeholder_asesoria" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_pago/maxresdefault.jpg" alt="Proceso de compra y pago" loading="lazy" onerror="this.src='https://via.placeholder.com/300x180?text=Video+no+disponible'">
+                        <div class="tutorial-info">
+                            <h4>Proceso de compra y pago</h4>
+                            <p>Aprende a finalizar tu compra y elegir el método de pago.</p>
+                            <a href="https://youtu.be/placeholder_pago" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CARRITO -->
+            <div id="cart-tab" class="tab-content">
+                <div style="padding: 20px;">
+                    <h2 style="color: var(--secondary); margin-bottom: 20px;">🛒 Tu Carrito</h2>
+                    <div id="cartItems"></div>
+                    <div id="cartEmpty" style="text-align: center; padding: 40px; color: var(--gray); display: none;">
+                        <p>Tu carrito está vacío</p>
+                        <button class="btn-main" onclick="switchTab('store')">Ir a la tienda</button>
+                    </div>
+                    <div id="cartFooter" style="display: none;">
+                        <div class="cart-total" id="cartTotal"></div>
+                        <div style="display: flex; gap: 10px; margin-top: 20px;">
+                            <button class="btn-outline" onclick="clearCart()">Vaciar carrito</button>
+                            <button class="whatsapp-button" onclick="checkoutCart()">Pagar ahora</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -675,6 +1222,14 @@
                 <p style="margin: 10px 0;">Asesor Solar Inteligente</p>
                 <p>📞 WhatsApp: +58 412 839 9000</p>
                 <p>✉️ info@ekovsolar.com.ve</p>
+                
+                <!-- Redes sociales en footer -->
+                <div class="social-buttons">
+                    <a href="https://facebook.com/tupagina" target="_blank" class="social-button facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/tupagina" target="_blank" class="social-button instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/tupagina" target="_blank" class="social-button youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                
                 <div id="footerPartnerInfo" class="footer-info">
                     <p style="margin: 5px 0;">🤝 <strong id="footerPartnerName">-</strong></p>
                     <p style="margin: 0; font-size:0.8rem;" id="footerPartnerLocation">-</p>
@@ -686,11 +1241,100 @@
         </footer>
     </div>
 
+    <!-- MODAL DE PAGO (CON BINANCE Y ZELLE) -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <h3>💳 Opciones de pago</h3>
+            
+            <!-- Paso 1: Selección de método y datos -->
+            <div id="step1-payment">
+                <p>Seleccione el método de pago:</p>
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 10px;">
+                        <input type="radio" name="metodoPago" value="transferencia" checked onchange="mostrarDatosPago()"> Transferencia bancaria
+                    </label>
+                    <label style="display: block; margin-bottom: 10px;">
+                        <input type="radio" name="metodoPago" value="pagoMovil" onchange="mostrarDatosPago()"> Pago móvil
+                    </label>
+                    <label style="display: block; margin-bottom: 10px;">
+                        <input type="radio" name="metodoPago" value="binance" onchange="mostrarDatosPago()"> Binance (Cripto)
+                    </label>
+                    <label style="display: block; margin-bottom: 10px;">
+                        <input type="radio" name="metodoPago" value="zelle" onchange="mostrarDatosPago()"> Zelle (USA)
+                    </label>
+                </div>
+                
+                <div id="datosTransferencia" class="bank-details">
+                    <p><strong>Banco:</strong> Banco de Venezuela</p>
+                    <p><strong>Titular:</strong> Ekov Solar C.A.</p>
+                    <p><strong>RIF:</strong> J-12345678-9</p>
+                    <p><strong>Cuenta Corriente:</strong> 0102-0123-45-12345678</p>
+                </div>
+                
+                <div id="datosPagoMovil" class="bank-details" style="display: none;">
+                    <p><strong>Banco:</strong> Banco de Venezuela</p>
+                    <p><strong>Titular:</strong> Ekov Solar C.A.</p>
+                    <p><strong>Teléfono:</strong> 0412-1234567</p>
+                    <p><strong>Cédula/RIF:</strong> J-12345678-9</p>
+                </div>
+                
+                <div id="datosBinance" class="bank-details" style="display: none;">
+                    <p><strong>Binance ID:</strong> 123456789</p>
+                    <p><strong>Email Binance:</strong> pagos@ekovsolar.com</p>
+                    <p><strong>Red:</strong> BEP20 (USDT) - Dirección: 0x1234...abcd</p>
+                    <p><em>Enviar comprobante de la transacción.</em></p>
+                </div>
+                
+                <div id="datosZelle" class="bank-details" style="display: none;">
+                    <p><strong>Zelle (correo):</strong> pagos@ekovsolar.com</p>
+                    <p><strong>Titular:</strong> Ekov Solar C.A.</p>
+                    <p><strong>Teléfono (opcional):</strong> +58 412 1234567</p>
+                    <p><em>Enviar comprobante por WhatsApp.</em></p>
+                </div>
+                
+                <button class="btn-main" onclick="mostrarConfirmacionPago()">Continuar</button>
+            </div>
+            
+            <!-- Paso 2: Confirmación de pago -->
+            <div id="step2-payment" style="display: none;">
+                <h4>📝 Confirmar pago</h4>
+                <div class="input-group">
+                    <label>Método elegido: <span id="metodoElegido"></span></label>
+                </div>
+                <div class="input-group">
+                    <label>Número de referencia / ID de transacción</label>
+                    <input type="text" id="paymentReference" placeholder="Ej: 123456789">
+                </div>
+                <div class="input-group">
+                    <label>Monto pagado (Bs. o USD)</label>
+                    <input type="number" id="paymentAmount" placeholder="Ej: 12500">
+                </div>
+                <div class="input-group">
+                    <label>Tu nombre (opcional)</label>
+                    <input type="text" id="paymentName" placeholder="Ej: Juan Pérez">
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="confirmDelivery" checked> Acepto el tiempo de entrega estimado de <strong>3 a 5 días hábiles</strong>.
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="volverPaso1()" class="btn-outline">Volver</button>
+                    <button onclick="sendPaymentConfirmation()" class="whatsapp-button">📲 Confirmar pago</button>
+                </div>
+            </div>
+            
+            <div class="modal-footer" id="modalCloseBtn">
+                <button onclick="closePaymentModal()" class="btn-main" style="background: #dc3545;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ================== CONFIGURACIÓN ==================
-        const WHATSAPP_NUMBER = '584128399000';  // Número central de WhatsApp Business
+        const WHATSAPP_NUMBER = '584128399000';
         const COMPANY_NAME = 'Ekov Solar';
-        const APP_URL = window.location.origin + window.location.pathname; // URL base de la app
+        const APP_URL = window.location.origin + window.location.pathname;
         
         // ================== BASE DE DATOS DE ALIADOS ==================
         const PARTNERS_DATABASE = {
@@ -701,141 +1345,243 @@
             'T005': { nombre: 'Energía Renovable C.A.', ubicacion: 'Mérida, Av. Las Américas', contacto: '+58 427 987 6543', activo: true }
         };
 
+        // ================== PRODUCTOS DE LA TIENDA ==================
+        const storeProducts = [
+            // Kits solares
+            { 
+                id: 'ekov1000', 
+                name: 'EKOV RESCUE 1000', 
+                category: 'kits', 
+                price: 12500, 
+                description: 'Kit solar básico para iluminación y dispositivos esenciales. Ideal para respaldo en hogares.',
+                image: 'https://via.placeholder.com/300x200?text=Kit+Rescue+1000',
+                specs: ['Potencia: 1000W', 'Batería: 100Ah', 'Panel: 2x250W', 'Inversor: 1000W'],
+                whatsappId: 'EKOV1000' 
+            },
+            { 
+                id: 'ekov3000', 
+                name: 'EKOV COMFORT 3000', 
+                category: 'kits', 
+                price: 28900, 
+                description: 'Kit solar para confort en hogares, incluye nevera, iluminación y TV.',
+                image: 'https://via.placeholder.com/300x200?text=Kit+Comfort+3000',
+                specs: ['Potencia: 3000W', 'Batería: 200Ah', 'Panel: 4x300W', 'Inversor: 3000W'],
+                whatsappId: 'EKOV3000' 
+            },
+            { 
+                id: 'ekov5000', 
+                name: 'EKOV INDEPENDENCE 5000', 
+                category: 'kits', 
+                price: 45200, 
+                description: 'Kit solar para pequeñas empresas, soporta equipos de oficina y climatización.',
+                image: 'https://via.placeholder.com/300x200?text=Kit+Independence+5000',
+                specs: ['Potencia: 5000W', 'Batería: 400Ah', 'Panel: 8x350W', 'Inversor: 5000W'],
+                whatsappId: 'EKOV5000' 
+            },
+            { 
+                id: 'ekov12000', 
+                name: 'EKOV INDUSTRIAL 12000', 
+                category: 'kits', 
+                price: 105000, 
+                description: 'Kit solar industrial para grandes consumos, ideal para hoteles y fábricas.',
+                image: 'https://via.placeholder.com/300x200?text=Kit+Industrial+12000',
+                specs: ['Potencia: 12000W', 'Batería: 800Ah', 'Panel: 20x350W', 'Inversor: 12000W'],
+                whatsappId: 'EKOV12000' 
+            },
+            { 
+                id: 'ekov15000', 
+                name: 'EKOV INDUSTRIAL 15000', 
+                category: 'kits', 
+                price: 132000, 
+                description: 'Kit solar de alta potencia para proyectos grandes y sistemas trifásicos.',
+                image: 'https://via.placeholder.com/300x200?text=Kit+Industrial+15000',
+                specs: ['Potencia: 15000W', 'Batería: 1000Ah', 'Panel: 25x350W', 'Inversor: 15000W'],
+                whatsappId: 'EKOV15000' 
+            },
+            
+            // Bombas Superficiales
+            { 
+                id: 'bomba-sup-05hp', 
+                name: 'Bomba Superficial 0.5HP', 
+                category: 'bombas-superficiales', 
+                price: 5500, 
+                description: 'Ideal para pequeños riegos y tanques elevados. Caudal hasta 2000 L/h.',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Superficial+0.5HP',
+                specs: ['Potencia: 0.5HP', 'Caudal máx: 2000 L/h', 'Altura máx: 20m', 'Voltaje: 12V/24V'],
+                whatsappId: 'BSUP05' 
+            },
+            { 
+                id: 'bomba-sup-1hp', 
+                name: 'Bomba Superficial 1HP', 
+                category: 'bombas-superficiales', 
+                price: 8500, 
+                description: 'Para pozos superficiales y uso doméstico. Caudal hasta 15000 L/h.',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Superficial+1HP',
+                specs: ['Potencia: 1HP', 'Caudal máx: 15000 L/h', 'Altura máx: 30m', 'Voltaje: 24V/48V'],
+                whatsappId: 'BSUP1' 
+            },
+            { 
+                id: 'bomba-sup-2hp', 
+                name: 'Bomba Superficial 2HP', 
+                category: 'bombas-superficiales', 
+                price: 14500, 
+                description: 'Alto caudal para riego agrícola. Caudal hasta 30000 L/h.',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Superficial+2HP',
+                specs: ['Potencia: 2HP', 'Caudal máx: 30000 L/h', 'Altura máx: 40m', 'Voltaje: 48V'],
+                whatsappId: 'BSUP2' 
+            },
+            { 
+                id: 'bomba-sup-3hp', 
+                name: 'Bomba Superficial 3HP', 
+                category: 'bombas-superficiales', 
+                price: 19500, 
+                description: 'Para grandes caudales, hasta 50000 L/h. Ideal para sistemas de riego industrial.',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Superficial+3HP',
+                specs: ['Potencia: 3HP', 'Caudal máx: 50000 L/h', 'Altura máx: 50m', 'Voltaje: 48V/110V'],
+                whatsappId: 'BSUP3' 
+            },
+            
+            // Bombas Sumergibles
+            { 
+                id: 'bomba-sum-1hp', 
+                name: 'Bomba Sumergible 1HP', 
+                category: 'bombas-sumergibles', 
+                price: 12500, 
+                description: 'Para pozos profundos hasta 30m. Diámetro mínimo 3".',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Sumergible+1HP',
+                specs: ['Potencia: 1HP', 'Profundidad máx: 30m', 'Diámetro: 3"', 'Salida: 1.25"', 'Voltaje: 24V/48V'],
+                whatsappId: 'BSUM1' 
+            },
+            { 
+                id: 'bomba-sum-2hp', 
+                name: 'Bomba Sumergible 2HP', 
+                category: 'bombas-sumergibles', 
+                price: 19500, 
+                description: 'Para pozos profundos hasta 50m. Diámetro mínimo 4".',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Sumergible+2HP',
+                specs: ['Potencia: 2HP', 'Profundidad máx: 50m', 'Diámetro: 4"', 'Salida: 2"', 'Voltaje: 48V/110V'],
+                whatsappId: 'BSUM2' 
+            },
+            { 
+                id: 'bomba-sum-3hp', 
+                name: 'Bomba Sumergible 3HP', 
+                category: 'bombas-sumergibles', 
+                price: 28500, 
+                description: 'Alta presión para pozos profundos hasta 100m. Diámetro mínimo 6".',
+                image: 'https://via.placeholder.com/300x200?text=Bomba+Sumergible+3HP',
+                specs: ['Potencia: 3HP', 'Profundidad máx: 100m', 'Diámetro: 6"', 'Salida: 3"', 'Voltaje: 110V/220V'],
+                whatsappId: 'BSUM3' 
+            },
+            
+            // Paneles
+            { 
+                id: 'panel-300w', 
+                name: 'Panel Solar 300W', 
+                category: 'paneles', 
+                price: 4200, 
+                description: 'Panel monocristalino de alta eficiencia. Ideal para sistemas de 12V/24V.',
+                image: 'https://via.placeholder.com/300x200?text=Panel+300W',
+                specs: ['Potencia: 300W', 'Eficiencia: 21%', 'Voc: 40V', 'Isc: 9A'],
+                whatsappId: 'PAN300' 
+            },
+            { 
+                id: 'panel-450w', 
+                name: 'Panel Solar 450W', 
+                category: 'paneles', 
+                price: 6200, 
+                description: 'Panel bifacial para mayor rendimiento. Capta luz por ambos lados.',
+                image: 'https://via.placeholder.com/300x200?text=Panel+450W',
+                specs: ['Potencia: 450W', 'Eficiencia: 22%', 'Voc: 50V', 'Isc: 11A'],
+                whatsappId: 'PAN450' 
+            }
+        ];
+
         // ================== ESTADO GLOBAL ==================
-        let trafficSource = {
-            type: 'direct', // 'partner' o 'direct'
-            partnerCode: null,
-            partnerData: null,
-            welcomeMessageSent: false
-        };
-        
+        let trafficSource = { type: 'direct', partnerCode: null, partnerData: null, welcomeMessageSent: false };
         let selectedSector = '';
         let totalW = 0, totalKWh = 0;
         let artefactosSeleccionados = [];
         let recommendedKit = '', kitWhatsappId = '', kitDescription = '';
+        let selectedProduct = null; // Para pago directo
+
+        // Carrito de compras
+        let carrito = [];
 
         // ================== INICIALIZACIÓN ==================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Asesor Solar Inteligente iniciado');
+            console.log('🚀 Ekov Solar con tutoriales iniciado');
             detectTrafficSource();
             initNavigation();
             initStore();
             loadWhatsAppCatalog();
+            cargarCarrito();
+            actualizarContadorCarrito();
         });
 
-        // ================== DETECCIÓN DE FUENTE DE TRÁFICO ==================
+        // ================== DETECCIÓN DE FUENTE ==================
         function detectTrafficSource() {
             const urlParams = new URLSearchParams(window.location.search);
-            const partnerCode = urlParams.get('partner') || urlParams.get('aliado') || urlParams.get('ref') || urlParams.get('p');
-            
+            const partnerCode = urlParams.get('partner');
             if (partnerCode && PARTNERS_DATABASE[partnerCode]) {
-                // 🟢 CASO 1: VIENE DE QR DE ALIADO
-                trafficSource = {
-                    type: 'partner',
-                    partnerCode: partnerCode,
-                    partnerData: PARTNERS_DATABASE[partnerCode],
-                    welcomeMessageSent: false
-                };
-                localStorage.setItem('ekov_source_type', 'partner');
+                trafficSource = { type: 'partner', partnerCode, partnerData: PARTNERS_DATABASE[partnerCode], welcomeMessageSent: false };
                 localStorage.setItem('ekov_partner_code', partnerCode);
-                
-                // Enviar mensaje de bienvenida a WhatsApp Business
-                sendWelcomeMessage();
-                
-                // Mostrar tarjeta para guardar enlace
+                if (!trafficSource.welcomeMessageSent) sendWelcomeMessage();
                 showLinkSaverCard();
-                
             } else {
-                // 🔵 CASO 2: TRÁFICO DIRECTO
-                trafficSource = {
-                    type: 'direct',
-                    partnerCode: null,
-                    partnerData: null,
-                    welcomeMessageSent: false
-                };
-                localStorage.setItem('ekov_source_type', 'direct');
+                trafficSource = { type: 'direct', partnerCode: null, partnerData: null, welcomeMessageSent: false };
             }
-            
-            // Actualizar UI según la fuente
             updateSourceUI();
         }
 
-        // ================== ENVÍO DE MENSAJE DE BIENVENIDA A WHATSAPP BUSINESS ==================
         function sendWelcomeMessage() {
             if (trafficSource.type !== 'partner' || trafficSource.welcomeMessageSent) return;
-            
             const now = new Date();
             const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
-            
             const appLink = `${APP_URL}?partner=${trafficSource.partnerCode}`;
-            
-            let message = `🆕 *NUEVO CLIENTE DESDE QR DE ALIADO*\n\n`;
-            message += `📅 Fecha: ${fecha}\n⏰ Hora: ${hora}\n\n`;
-            message += `🏪 *Aliado:* ${trafficSource.partnerData.nombre}\n`;
-            message += `📍 *Ubicación:* ${trafficSource.partnerData.ubicacion}\n`;
-            message += `🆔 *Código:* ${trafficSource.partnerCode}\n\n`;
-            message += `📲 *ENLACE PARA EL CLIENTE:*\n${appLink}\n\n`;
-            message += `_Reenvíe este enlace al cliente para que acceda al Asesor Solar._`;
-            
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-            
+            let message = `🆕 *NUEVO CLIENTE DESDE QR DE ALIADO*\n\n📅 ${fecha} ⏰ ${hora}\n\n🏪 *Aliado:* ${trafficSource.partnerData.nombre}\n📍 ${trafficSource.partnerData.ubicacion}\n🆔 *Código:* ${trafficSource.partnerCode}\n\n📲 *ENLACE:* ${appLink}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
             trafficSource.welcomeMessageSent = true;
-            console.log('✅ Mensaje de bienvenida enviado a WhatsApp Business');
         }
 
-        // ================== MOSTRAR TARJETA PARA GUARDAR ENLACE ==================
         function showLinkSaverCard() {
             const card = document.getElementById('linkSaverCard');
             const linkField = document.getElementById('appLinkField');
             if (card && linkField) {
-                const fullLink = `${APP_URL}?partner=${trafficSource.partnerCode}`;
-                linkField.value = fullLink;
+                linkField.value = `${APP_URL}?partner=${trafficSource.partnerCode}`;
                 card.style.display = 'block';
             }
         }
 
-        // ================== CERRAR TARJETA ==================
-        window.closeLinkSaver = function() {
-            document.getElementById('linkSaverCard').style.display = 'none';
-        };
-
-        // ================== COPIAR ENLACE AL PORTAPAPELES ==================
-        window.copyAppLink = function() {
+        window.closeLinkSaver = () => document.getElementById('linkSaverCard').style.display = 'none';
+        
+        window.copyAppLink = () => {
             const linkField = document.getElementById('appLinkField');
             linkField.select();
             linkField.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(linkField.value).then(() => {
-                alert('✅ Enlace copiado al portapapeles');
-            }).catch(() => {
+            try {
+                navigator.clipboard.writeText(linkField.value).then(() => {
+                    alert('✅ Enlace copiado al portapapeles');
+                }).catch(() => {
+                    document.execCommand('copy');
+                    alert('✅ Enlace copiado (método alternativo)');
+                });
+            } catch (err) {
                 document.execCommand('copy');
                 alert('✅ Enlace copiado');
-            });
+            }
         };
 
-        // ================== ENVIAR ENLACE A SÍ MISMO POR WHATSAPP ==================
-        window.sendLinkToSelf = function() {
+        window.sendLinkToSelf = () => {
             const link = document.getElementById('appLinkField').value;
-            const message = `Mi enlace de Ekov Solar: ${link}`;
-            const url = `https://wa.me/?text=${encodeURIComponent(message)}`; // Abre WhatsApp sin número destino, para que el usuario elija
-            window.open(url, '_blank');
+            window.open(`https://wa.me/?text=${encodeURIComponent('Mi enlace de Ekov Solar: ' + link)}`, '_blank');
         };
 
-        // ================== ACTUALIZAR UI SEGÚN FUENTE ==================
         function updateSourceUI() {
-            // Ocultar todos
-            document.getElementById('partnerBadge').style.display = 'none';
-            document.getElementById('directBadge').style.display = 'none';
-            document.getElementById('partnerInfo').style.display = 'none';
-            document.getElementById('directInfo').style.display = 'none';
-            document.getElementById('footerPartnerInfo').style.display = 'none';
-            document.getElementById('footerDirectInfo').style.display = 'none';
-            
             if (trafficSource.type === 'partner') {
-                // Mostrar UI de aliado
-                document.getElementById('partnerBadge').style.display = 'block';
+                document.getElementById('partnerBadge').style.display = 'inline-block';
                 document.getElementById('partnerBadge').textContent = `🤝 ${trafficSource.partnerCode}`;
+                document.getElementById('directBadge').style.display = 'none';
                 
                 document.getElementById('partnerInfo').style.display = 'block';
                 document.getElementById('partnerName').textContent = trafficSource.partnerData.nombre;
@@ -844,12 +1590,16 @@
                 document.getElementById('footerPartnerInfo').style.display = 'block';
                 document.getElementById('footerPartnerName').textContent = trafficSource.partnerData.nombre;
                 document.getElementById('footerPartnerLocation').textContent = trafficSource.partnerData.ubicacion;
-                
+                document.getElementById('footerDirectInfo').style.display = 'none';
             } else {
-                // Mostrar UI de tráfico directo
-                document.getElementById('directBadge').style.display = 'block';
+                document.getElementById('directBadge').style.display = 'inline-block';
+                document.getElementById('partnerBadge').style.display = 'none';
+                
                 document.getElementById('directInfo').style.display = 'block';
+                document.getElementById('partnerInfo').style.display = 'none';
+                
                 document.getElementById('footerDirectInfo').style.display = 'block';
+                document.getElementById('footerPartnerInfo').style.display = 'none';
             }
         }
 
@@ -897,15 +1647,6 @@
             ]
         };
 
-        // ================== PRODUCTOS DE LA TIENDA ==================
-        const storeProducts = [
-            {id: 'ekov1000', name: 'EKOV RESCUE 1000', category: 'kits', price: 12500, whatsappId: 'EKOV1000'},
-            {id: 'ekov3000', name: 'EKOV COMFORT 3000', category: 'kits', price: 28900, whatsappId: 'EKOV3000'},
-            {id: 'ekov5000', name: 'EKOV INDEPENDENCE 5000', category: 'kits', price: 45200, whatsappId: 'EKOV5000'},
-            {id: 'ekov12000', name: 'EKOV INDUSTRIAL 12000', category: 'kits', price: 105000, whatsappId: 'EKOV12000'},
-            {id: 'ekov15000', name: 'EKOV INDUSTRIAL 15000', category: 'kits', price: 132000, whatsappId: 'EKOV15000'}
-        ];
-
         // ================== NAVEGACIÓN ==================
         function initNavigation() {
             document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -921,20 +1662,248 @@
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
+            if (tabId === 'cart') renderCart();
         }
 
-        // ================== CALCULADORA ==================
+        // ================== INICIALIZAR SECTOR ==================
         function initApp(sector) {
             selectedSector = sector;
             let html = '';
-            catalog[sector].forEach((item, i) => {
-                html += `<div class="device-row">
-                    <span>${item.n} <small>(${item.w}W)</small></span>
-                    <input type="number" id="input-${i}" value="0" min="0" max="99">
-                </div>`;
-            });
-            document.getElementById('itemsContainer').innerHTML = html;
+            
+            if (sector === 'bombas') {
+                html = `
+                    <div class="device-row">
+                        <label>Tipo de bomba:</label>
+                        <select id="bombaTipo" onchange="updateBombaFields()">
+                            <option value="superficial">Superficial</option>
+                            <option value="sumergible">Sumergible</option>
+                        </select>
+                    </div>
+                    <div id="bombaCampos"></div>
+                    <div class="device-row">
+                        <label>Voltaje del sistema:</label>
+                        <select id="bombaVoltaje">
+                            <option value="12V">12V</option>
+                            <option value="24V">24V</option>
+                            <option value="48V">48V</option>
+                            <option value="110V">110V AC</option>
+                            <option value="220V">220V AC</option>
+                        </select>
+                    </div>
+                    <div class="device-row">
+                        <label>Potencia del motor (HP):</label>
+                        <select id="bombaPotencia">
+                            <option value="0.5">0.5 HP</option>
+                            <option value="1">1 HP</option>
+                            <option value="2">2 HP</option>
+                            <option value="3">3 HP</option>
+                            <option value="5">5 HP</option>
+                        </select>
+                    </div>
+                `;
+                document.getElementById('itemsContainer').innerHTML = html;
+                updateBombaFields();
+            } else {
+                catalog[sector].forEach((item, i) => {
+                    html += `<div class="device-row"><span>${item.n} <small>(${item.w}W)</small></span><input type="number" id="input-${i}" value="0" min="0" max="99"></div>`;
+                });
+                document.getElementById('itemsContainer').innerHTML = html;
+            }
             showStep(2);
+        }
+
+        window.updateBombaFields = function() {
+            const tipo = document.getElementById('bombaTipo').value;
+            const contenedor = document.getElementById('bombaCampos');
+            let html = '';
+            if (tipo === 'superficial') {
+                html = `
+                    <div class="device-row">
+                        <label>Caudal (litros/hora):</label>
+                        <select id="bombaCaudal">
+                            <option value="2000">2000 L/h</option>
+                            <option value="5000">5000 L/h</option>
+                            <option value="15000">15000 L/h</option>
+                            <option value="30000">30000 L/h</option>
+                            <option value="50000">50000 L/h</option>
+                        </select>
+                    </div>
+                    <div class="device-row">
+                        <label>Altura de elevación (m):</label>
+                        <select id="bombaAltura">
+                            <option value="10">10 m</option>
+                            <option value="20">20 m</option>
+                            <option value="30">30 m</option>
+                            <option value="40">40 m</option>
+                            <option value="50">50 m</option>
+                        </select>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="device-row">
+                        <label>Diámetro del pozo (pulgadas):</label>
+                        <select id="bombaDiametroPozo">
+                            <option value="3">3"</option>
+                            <option value="4">4"</option>
+                            <option value="6">6"</option>
+                            <option value="8">8"</option>
+                        </select>
+                    </div>
+                    <div class="device-row">
+                        <label>Profundidad (metros):</label>
+                        <select id="bombaProfundidad">
+                            <option value="20">20 m</option>
+                            <option value="30">30 m</option>
+                            <option value="50">50 m</option>
+                            <option value="80">80 m</option>
+                            <option value="100">100 m</option>
+                            <option value="150">150 m</option>
+                        </select>
+                    </div>
+                    <div class="device-row">
+                        <label>Diámetro de salida (pulgadas):</label>
+                        <select id="bombaSalida">
+                            <option value="1.25">1.25"</option>
+                            <option value="2">2"</option>
+                            <option value="3">3"</option>
+                            <option value="4">4"</option>
+                        </select>
+                    </div>
+                `;
+            }
+            contenedor.innerHTML = html;
+        };
+
+        // ================== CÁLCULO ==================
+        function calculate() {
+            if (selectedSector === 'bombas') {
+                const tipo = document.getElementById('bombaTipo').value;
+                const voltaje = document.getElementById('bombaVoltaje').value;
+                const potenciaHP = parseFloat(document.getElementById('bombaPotencia').value);
+                
+                let recomendacion = '';
+                let descripcion = '';
+                let productId = '';
+                
+                if (tipo === 'superficial') {
+                    const caudal = parseInt(document.getElementById('bombaCaudal').value);
+                    const altura = parseInt(document.getElementById('bombaAltura').value);
+                    
+                    if (potenciaHP <= 0.5 && caudal <= 2000 && altura <= 20) {
+                        recomendacion = 'Bomba Superficial 0.5HP';
+                        productId = 'bomba-sup-05hp';
+                        descripcion = `Ideal para ${caudal} L/h a ${altura}m. Voltaje ${voltaje}.`;
+                    } else if (potenciaHP <= 1 && caudal <= 15000 && altura <= 30) {
+                        recomendacion = 'Bomba Superficial 1HP';
+                        productId = 'bomba-sup-1hp';
+                        descripcion = `Adecuada para ${caudal} L/h a ${altura}m. Voltaje ${voltaje}.`;
+                    } else if (potenciaHP <= 2 && caudal <= 30000 && altura <= 40) {
+                        recomendacion = 'Bomba Superficial 2HP';
+                        productId = 'bomba-sup-2hp';
+                        descripcion = `Para ${caudal} L/h a ${altura}m. Voltaje ${voltaje}.`;
+                    } else {
+                        recomendacion = 'Bomba Superficial 3HP o mayor';
+                        productId = 'bomba-sup-3hp';
+                        descripcion = `Para ${caudal} L/h a ${altura}m. Consulte disponibilidad. Voltaje ${voltaje}.`;
+                    }
+                    kitWhatsappId = productId.toUpperCase().replace(/-/g, '');
+                    
+                } else {
+                    const diametro = document.getElementById('bombaDiametroPozo').value;
+                    const profundidad = parseInt(document.getElementById('bombaProfundidad').value);
+                    const salida = document.getElementById('bombaSalida').value;
+                    
+                    if (potenciaHP <= 1 && profundidad <= 30 && diametro >= 3) {
+                        recomendacion = 'Bomba Sumergible 1HP';
+                        productId = 'bomba-sum-1hp';
+                        descripcion = `Para pozo ${diametro}", profundidad ${profundidad}m, salida ${salida}". Voltaje ${voltaje}.`;
+                    } else if (potenciaHP <= 2 && profundidad <= 50 && diametro >= 4) {
+                        recomendacion = 'Bomba Sumergible 2HP';
+                        productId = 'bomba-sum-2hp';
+                        descripcion = `Para pozo ${diametro}", profundidad ${profundidad}m, salida ${salida}". Voltaje ${voltaje}.`;
+                    } else if (potenciaHP <= 3 && profundidad <= 100 && diametro >= 6) {
+                        recomendacion = 'Bomba Sumergible 3HP';
+                        productId = 'bomba-sum-3hp';
+                        descripcion = `Para pozo ${diametro}", profundidad ${profundidad}m, salida ${salida}". Voltaje ${voltaje}.`;
+                    } else {
+                        recomendacion = 'Bomba Sumergible de alta potencia';
+                        productId = 'bomba-sum-3hp';
+                        descripcion = `Para pozo ${diametro}", profundidad ${profundidad}m, salida ${salida}". Consulte disponibilidad. Voltaje ${voltaje}.`;
+                    }
+                    kitWhatsappId = productId.toUpperCase().replace(/-/g, '');
+                }
+                
+                document.getElementById('cons-info').innerHTML = ``;
+                document.getElementById('kit-name').innerText = recomendacion;
+                document.getElementById('kit-desc').innerText = descripcion;
+                
+                const producto = storeProducts.find(p => p.id === productId);
+                if (producto) {
+                    document.getElementById('storeLinkContainer').innerHTML = `
+                        <a href="#" onclick="switchTab('store');" class="store-link">🔍 Ver este producto en la tienda</a>
+                    `;
+                } else {
+                    document.getElementById('storeLinkContainer').innerHTML = '';
+                }
+                
+                artefactosSeleccionados = [{ nombre: 'Consulta de bomba', cantidad: 1 }];
+                
+            } else {
+                totalW = 0; totalKWh = 0; artefactosSeleccionados = [];
+                catalog[selectedSector].forEach((item, i) => {
+                    const qty = parseInt(document.getElementById(`input-${i}`).value) || 0;
+                    if(qty > 0) {
+                        totalW += qty * item.w;
+                        totalKWh += (qty * item.w * item.h) / 1000;
+                        artefactosSeleccionados.push({nombre: item.n, cantidad: qty});
+                    }
+                });
+                if (totalW === 0) { alert("Ingrese cantidades"); return; }
+                
+                let productId = '';
+                if (totalW <= 1000) { 
+                    recommendedKit = "EKOV RESCUE 1000"; 
+                    kitWhatsappId = "EKOV1000"; 
+                    kitDescription = "Ideal para iluminación y dispositivos esenciales.";
+                    productId = 'ekov1000';
+                } else if (totalW <= 3000) { 
+                    recommendedKit = "EKOV COMFORT 3000"; 
+                    kitWhatsappId = "EKOV3000"; 
+                    kitDescription = "Perfecto para hogares, incluye nevera y TV.";
+                    productId = 'ekov3000';
+                } else if (totalW <= 5000) { 
+                    recommendedKit = "EKOV INDEPENDENCE 5000"; 
+                    kitWhatsappId = "EKOV5000"; 
+                    kitDescription = "Pequeñas empresas y oficinas.";
+                    productId = 'ekov5000';
+                } else if (totalW <= 12000) { 
+                    recommendedKit = "EKOV INDUSTRIAL 12000"; 
+                    kitWhatsappId = "EKOV12000"; 
+                    kitDescription = "Industrial para grandes consumos.";
+                    productId = 'ekov12000';
+                } else { 
+                    recommendedKit = "EKOV INDUSTRIAL 15000"; 
+                    kitWhatsappId = "EKOV15000"; 
+                    kitDescription = "Alta potencia para proyectos grandes.";
+                    productId = 'ekov15000';
+                }
+                
+                document.getElementById('cons-info').innerHTML = ``;
+                document.getElementById('kit-name').innerText = recommendedKit;
+                document.getElementById('kit-desc').innerText = kitDescription;
+                
+                const producto = storeProducts.find(p => p.id === productId);
+                if (producto) {
+                    document.getElementById('storeLinkContainer').innerHTML = `
+                        <a href="#" onclick="switchTab('store');" class="store-link">🔍 Ver este producto en la tienda</a>
+                    `;
+                } else {
+                    document.getElementById('storeLinkContainer').innerHTML = '';
+                }
+            }
+            
+            showStep(3);
         }
         
         function showStep(stepNum) {
@@ -943,32 +1912,11 @@
             window.scrollTo(0,0);
         }
         
-        function calculate() {
-            totalW = 0; totalKWh = 0; artefactosSeleccionados = [];
-            catalog[selectedSector].forEach((item, i) => {
-                const qty = parseInt(document.getElementById(`input-${i}`).value) || 0;
-                if(qty > 0) {
-                    totalW += qty * item.w;
-                    totalKWh += (qty * item.w * item.h) / 1000;
-                    artefactosSeleccionados.push({nombre: item.n, cantidad: qty});
-                }
-            });
-            if (totalW === 0) { alert("Ingrese cantidades"); return; }
-            
-            if (totalW <= 1000) { recommendedKit = "EKOV RESCUE 1000"; kitWhatsappId = "EKOV1000"; kitDescription = "Ideal para iluminación y dispositivos esenciales"; }
-            else if (totalW <= 3000) { recommendedKit = "EKOV COMFORT 3000"; kitWhatsappId = "EKOV3000"; kitDescription = "Perfecto para confort en hogares pequeños"; }
-            else if (totalW <= 5000) { recommendedKit = "EKOV INDEPENDENCE 5000"; kitWhatsappId = "EKOV5000"; kitDescription = "Excelente para pequeñas empresas"; }
-            else if (totalW <= 12000) { recommendedKit = "EKOV INDUSTRIAL 12000"; kitWhatsappId = "EKOV12000"; kitDescription = "Industrial para grandes consumos"; }
-            else { recommendedKit = "EKOV INDUSTRIAL 15000"; kitWhatsappId = "EKOV15000"; kitDescription = "Industrial de alta potencia"; }
-            
-            document.getElementById('cons-info').innerHTML = `📊 Carga Máxima: ${totalW}W | Consumo: ${totalKWh.toFixed(1)} kWh/día`;
-            document.getElementById('kit-name').innerText = recommendedKit;
-            document.getElementById('kit-desc').innerText = kitDescription;
-            showStep(3);
-        }
-        
         function resetCalculator() { 
-            selectedSector = ''; totalW = 0; totalKWh = 0; artefactosSeleccionados = []; showStep(1); 
+            selectedSector = ''; 
+            totalW = 0; totalKWh = 0; 
+            artefactosSeleccionados = []; 
+            showStep(1); 
         }
 
         // ================== WHATSAPP CONSULTA ==================
@@ -977,30 +1925,45 @@
             const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
             
-            const sectorNames = { 'hogar': 'Hogar', 'turismo': 'Hoteles', 'comercio': 'Comercio', 'agro': 'Agro', 'telecom': 'Telecom' };
-            
-            let dispositivos = '';
-            artefactosSeleccionados.forEach(i => dispositivos += `• ${i.nombre}: ${i.cantidad}\n`);
-            
-            const catalogoLink = `https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
-            
-            let msg = `🔋 *NUEVA CONSULTA - ASESOR SOLAR*\n\n`;
-            msg += `📅 ${fecha}\n⏰ ${hora}\n\n`;
+            let msg = `🔋 *NUEVA CONSULTA*\n\n📅 ${fecha} ⏰ ${hora}\n\n`;
             
             if (trafficSource.type === 'partner') {
-                msg += `🟢 *QR ALIADO:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+                msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
             } else {
-                msg += `🔵 *TRÁFICO DIRECTO*\n\n`;
+                msg += `📱 *Fuente:* Visita Directa\n\n`;
             }
             
-            msg += `🏢 *Sector:* ${sectorNames[selectedSector]}\n`;
-            msg += `⚡ *Equipo:* ${recommendedKit}\n`;
-            msg += `📊 *Consumo:* ${totalKWh.toFixed(1)} kWh/día\n`;
-            msg += `🆔 *Código:* ${kitWhatsappId}\n`;
-            msg += `🔗 *Catálogo:* ${catalogoLink}\n\n`;
-            msg += `📋 *Dispositivos:*\n${dispositivos}\n`;
-            msg += `📱 *Enlace:* ${catalogoLink}\n\n`;
-            msg += `_Generado automáticamente_`;
+            if (selectedSector === 'bombas') {
+                const tipo = document.getElementById('bombaTipo').value;
+                const voltaje = document.getElementById('bombaVoltaje').value;
+                const potencia = document.getElementById('bombaPotencia').value;
+                msg += `🚰 *Tipo:* ${tipo === 'superficial' ? 'Superficial' : 'Sumergible'}\n`;
+                msg += `⚡ *Voltaje:* ${voltaje}\n`;
+                msg += `🐎 *Potencia:* ${potencia} HP\n`;
+                if (tipo === 'superficial') {
+                    const caudal = document.getElementById('bombaCaudal').value;
+                    const altura = document.getElementById('bombaAltura').value;
+                    msg += `💧 *Caudal:* ${caudal} L/h\n`;
+                    msg += `📏 *Altura:* ${altura} m\n`;
+                } else {
+                    const diametro = document.getElementById('bombaDiametroPozo').value;
+                    const profundidad = document.getElementById('bombaProfundidad').value;
+                    const salida = document.getElementById('bombaSalida').value;
+                    msg += `📏 *Diámetro pozo:* ${diametro}"\n`;
+                    msg += `📐 *Profundidad:* ${profundidad} m\n`;
+                    msg += `🔧 *Salida:* ${salida}"\n`;
+                }
+                msg += `\n⚡ *Equipo recomendado:* ${document.getElementById('kit-name').innerText}\n`;
+                msg += `📝 *Detalle:* ${document.getElementById('kit-desc').innerText}\n`;
+                msg += `🆔 *Código:* ${kitWhatsappId}\n`;
+                msg += `🔗 *Catálogo:* https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
+            } else {
+                const sectorNames = { 'hogar': 'Hogar', 'turismo': 'Hoteles', 'comercio': 'Comercio', 'agro': 'Agro', 'telecom': 'Telecom' };
+                let dispositivos = '';
+                artefactosSeleccionados.forEach(i => dispositivos += `• ${i.nombre}: ${i.cantidad}\n`);
+                const catalogoLink = `https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
+                msg += `🏢 *Sector:* ${sectorNames[selectedSector]}\n⚡ *Equipo:* ${recommendedKit}\n📊 *Consumo:* ${totalKWh.toFixed(1)} kWh/día\n🆔 *Código:* ${kitWhatsappId}\n🔗 *Catálogo:* ${catalogoLink}\n\n📋 *Dispositivos:*\n${dispositivos}\n📱 *Enlace:* ${catalogoLink}`;
+            }
             
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
@@ -1023,14 +1986,25 @@
             if (loading) loading.style.display = 'none';
             grid.innerHTML = '';
             products.forEach(p => {
-                grid.innerHTML += `<div class="product-card">
-                    <div class="product-image">☀️</div>
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.id = `product-${p.id}`;
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Imagen+no+disponible'">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
+                        <div class="product-description">${p.description}</div>
                         <div class="product-price">$${p.price.toLocaleString()}</div>
-                        <button class="whatsapp-button" onclick="consultarProducto('${p.name}', '${p.whatsappId}', ${p.price})">💬 Consultar</button>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="whatsapp-button" onclick="consultarProducto('${p.name}', '${p.whatsappId}', ${p.price}, ${JSON.stringify(p.specs)})" style="flex: 1;">💬 Consultar</button>
+                            <button class="btn-outline" onclick="agregarAlCarrito('${p.id}')" style="flex: 1;">➕ Añadir</button>
+                            <button class="btn-main" onclick="openPaymentModal('${p.name}', ${p.price})" style="flex: 1;">🛒 Comprar</button>
+                        </div>
                     </div>
-                </div>`;
+                `;
+                grid.appendChild(card);
             });
         }
         
@@ -1039,14 +2013,256 @@
             else renderStoreProducts(storeProducts.filter(p => p.category === category));
         }
 
-        // ================== CONSULTAR PRODUCTO ==================
-        function consultarProducto(name, id, price) {
+        // ================== CONSULTAR PRODUCTO (WhatsApp) ==================
+        function consultarProducto(name, id, price, specs) {
             let msg = `🛒 *CONSULTA DE PRODUCTO*\n\n`;
             if (trafficSource.type === 'partner') {
                 msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            } else {
+                msg += `📱 *Fuente:* Visita Directa\n\n`;
             }
-            msg += `🏷️ *Producto:* ${name}\n💰 *Precio:* $${price.toLocaleString()}\n🆔 *Código:* ${id}\n\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${id}`;
+            msg += `🏷️ *Producto:* ${name}\n💰 *Precio:* $${price.toLocaleString()}\n🆔 *Código:* ${id}\n`;
+            if (specs && specs.length) {
+                msg += `📋 *Especificaciones:*\n`;
+                specs.forEach(s => msg += `   • ${s}\n`);
+            }
+            msg += `\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${id}`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ================== CARRITO ==================
+        function agregarAlCarrito(productId) {
+            const producto = storeProducts.find(p => p.id === productId);
+            if (!producto) return;
+            
+            const existente = carrito.find(item => item.id === productId);
+            if (existente) {
+                existente.cantidad += 1;
+            } else {
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.name,
+                    precio: producto.price,
+                    cantidad: 1,
+                    imagen: producto.image
+                });
+            }
+            guardarCarrito();
+            actualizarContadorCarrito();
+            alert('✅ Producto añadido al carrito');
+        }
+
+        function guardarCarrito() {
+            localStorage.setItem('ekov_carrito', JSON.stringify(carrito));
+        }
+
+        function cargarCarrito() {
+            const guardado = localStorage.getItem('ekov_carrito');
+            if (guardado) {
+                try {
+                    carrito = JSON.parse(guardado);
+                } catch (e) {
+                    carrito = [];
+                }
+            } else {
+                carrito = [];
+            }
+            actualizarContadorCarrito();
+        }
+
+        function actualizarContadorCarrito() {
+            const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function renderCart() {
+            const contenedor = document.getElementById('cartItems');
+            const emptyDiv = document.getElementById('cartEmpty');
+            const footerDiv = document.getElementById('cartFooter');
+            
+            if (carrito.length === 0) {
+                contenedor.innerHTML = '';
+                emptyDiv.style.display = 'block';
+                footerDiv.style.display = 'none';
+                return;
+            }
+            
+            emptyDiv.style.display = 'none';
+            footerDiv.style.display = 'block';
+            
+            let html = '';
+            let total = 0;
+            carrito.forEach(item => {
+                total += item.precio * item.cantidad;
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.imagen}" alt="${item.nombre}" class="cart-item-image" loading="lazy" onerror="this.src='https://via.placeholder.com/60?text=No'">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.nombre}</div>
+                            <div class="cart-item-price">$${item.precio.toLocaleString()}</div>
+                            <div class="cart-item-quantity">
+                                <button onclick="cambiarCantidad('${item.id}', -1)">−</button>
+                                <span>${item.cantidad}</span>
+                                <button onclick="cambiarCantidad('${item.id}', 1)">+</button>
+                                <button onclick="eliminarDelCarrito('${item.id}')" style="margin-left:10px;">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            contenedor.innerHTML = html;
+            document.getElementById('cartTotal').innerHTML = `Total: $${total.toLocaleString()}`;
+        }
+
+        window.cambiarCantidad = function(productId, delta) {
+            const item = carrito.find(i => i.id === productId);
+            if (!item) return;
+            item.cantidad += delta;
+            if (item.cantidad <= 0) {
+                carrito = carrito.filter(i => i.id !== productId);
+            }
+            guardarCarrito();
+            actualizarContadorCarrito();
+            renderCart();
+        };
+
+        window.eliminarDelCarrito = function(productId) {
+            carrito = carrito.filter(i => i.id !== productId);
+            guardarCarrito();
+            actualizarContadorCarrito();
+            renderCart();
+        };
+
+        window.clearCart = function() {
+            carrito = [];
+            guardarCarrito();
+            actualizarContadorCarrito();
+            renderCart();
+        };
+
+        function checkoutCart() {
+            if (carrito.length === 0) {
+                alert('El carrito está vacío');
+                return;
+            }
+            const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+            selectedProduct = { name: "Carrito de compras", price: total };
+            openPaymentModal("Carrito de compras", total);
+        }
+
+        // ================== MODAL DE PAGO ==================
+        let metodoPagoSeleccionado = 'transferencia';
+
+        function openPaymentModal(productName, productPrice) {
+            selectedProduct = { name: productName, price: productPrice };
+            document.getElementById('paymentModal').style.display = 'flex';
+            document.getElementById('step1-payment').style.display = 'block';
+            document.getElementById('step2-payment').style.display = 'none';
+            document.getElementById('modalCloseBtn').style.display = 'block';
+            document.getElementById('paymentReference').value = '';
+            document.getElementById('paymentAmount').value = '';
+            document.getElementById('paymentName').value = '';
+            document.getElementById('confirmDelivery').checked = true;
+            mostrarDatosPago();
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            selectedProduct = null;
+        }
+
+        window.mostrarDatosPago = function() {
+            const radios = document.getElementsByName('metodoPago');
+            for (let radio of radios) {
+                if (radio.checked) {
+                    metodoPagoSeleccionado = radio.value;
+                    break;
+                }
+            }
+            document.getElementById('datosTransferencia').style.display = 'none';
+            document.getElementById('datosPagoMovil').style.display = 'none';
+            document.getElementById('datosBinance').style.display = 'none';
+            document.getElementById('datosZelle').style.display = 'none';
+            
+            if (metodoPagoSeleccionado === 'transferencia') {
+                document.getElementById('datosTransferencia').style.display = 'block';
+            } else if (metodoPagoSeleccionado === 'pagoMovil') {
+                document.getElementById('datosPagoMovil').style.display = 'block';
+            } else if (metodoPagoSeleccionado === 'binance') {
+                document.getElementById('datosBinance').style.display = 'block';
+            } else if (metodoPagoSeleccionado === 'zelle') {
+                document.getElementById('datosZelle').style.display = 'block';
+            }
+        };
+
+        window.mostrarConfirmacionPago = function() {
+            let metodoTexto = '';
+            if (metodoPagoSeleccionado === 'transferencia') metodoTexto = 'Transferencia bancaria';
+            else if (metodoPagoSeleccionado === 'pagoMovil') metodoTexto = 'Pago móvil';
+            else if (metodoPagoSeleccionado === 'binance') metodoTexto = 'Binance (Cripto)';
+            else if (metodoPagoSeleccionado === 'zelle') metodoTexto = 'Zelle';
+            document.getElementById('metodoElegido').textContent = metodoTexto;
+            document.getElementById('step1-payment').style.display = 'none';
+            document.getElementById('step2-payment').style.display = 'block';
+            document.getElementById('modalCloseBtn').style.display = 'none';
+        };
+
+        window.volverPaso1 = function() {
+            document.getElementById('step1-payment').style.display = 'block';
+            document.getElementById('step2-payment').style.display = 'none';
+            document.getElementById('modalCloseBtn').style.display = 'block';
+        };
+
+        function sendPaymentConfirmation() {
+            const reference = document.getElementById('paymentReference').value.trim();
+            const amount = document.getElementById('paymentAmount').value.trim();
+            const name = document.getElementById('paymentName').value.trim();
+            const deliveryAccepted = document.getElementById('confirmDelivery').checked;
+            
+            if (!reference || !amount) {
+                alert('Por favor, completa la referencia y el monto.');
+                return;
+            }
+            
+            let product = selectedProduct ? selectedProduct.name : 'Producto no especificado';
+            let detalleProductos = '';
+            
+            if (product === "Carrito de compras" && carrito.length > 0) {
+                detalleProductos = '\n📦 *Productos en carrito:*\n';
+                carrito.forEach(item => {
+                    detalleProductos += `   • ${item.nombre} x${item.cantidad} = $${(item.precio * item.cantidad).toLocaleString()}\n`;
+                });
+            }
+            
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-ES');
+            const hora = now.toLocaleTimeString('es-ES');
+            
+            let metodo = '';
+            if (metodoPagoSeleccionado === 'transferencia') metodo = 'Transferencia bancaria';
+            else if (metodoPagoSeleccionado === 'pagoMovil') metodo = 'Pago móvil';
+            else if (metodoPagoSeleccionado === 'binance') metodo = 'Binance (Cripto)';
+            else if (metodoPagoSeleccionado === 'zelle') metodo = 'Zelle';
+            
+            let message = `✅ *CONFIRMACIÓN DE PAGO*\n\n`;
+            message += `📅 Fecha: ${fecha} ⏰ Hora: ${hora}\n\n`;
+            message += `🛒 *Producto:* ${product}\n`;
+            message += detalleProductos;
+            message += `💳 *Método de pago:* ${metodo}\n`;
+            message += `💰 *Monto:* $${amount}\n`;
+            message += `📄 *Referencia:* ${reference}\n`;
+            if (name) message += `👤 *Cliente:* ${name}\n`;
+            message += `⏱️ *Tiempo de entrega aceptado:* 3-5 días hábiles\n`;
+            if (trafficSource.type === 'partner') {
+                message += `\n🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n`;
+                message += `📍 ${trafficSource.partnerData.ubicacion}\n`;
+            }
+            message += `\n_Esperando verificación._`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+            
+            closePaymentModal();
+            alert('✅ Confirmación enviada. Te contactaremos para verificar el pago.');
         }
 
         // ================== CATÁLOGO WHATSAPP ==================
@@ -1054,18 +2270,22 @@
             setTimeout(() => {
                 const cat = document.getElementById('whatsappCatalog');
                 if (!cat) return;
-                const products = [
-                    { name: 'Inversor Híbrido 5000W', code: 'INV5000', category: 'inversores', price: 'Consultar' },
-                    { name: 'Batería Litio 5kWh', code: 'BATLIT5', category: 'baterias', price: 'Consultar' },
-                    { name: 'Controlador MPPT 100A', code: 'MPPT100', category: 'controladores', price: 'Consultar' }
+                const catalogProducts = [
+                    { name: 'Inversor Híbrido 5000W', code: 'INV5000', category: 'inversores', price: 'Consultar', image: 'https://via.placeholder.com/300x200?text=Inversor+5000W', desc: 'Inversor solar híbrido con cargador MPPT.' },
+                    { name: 'Batería Litio 5kWh', code: 'BATLIT5', category: 'baterias', price: 'Consultar', image: 'https://via.placeholder.com/300x200?text=Bateria+Litio+5kWh', desc: 'Batería de litio de ciclo profundo.' },
+                    { name: 'Controlador MPPT 100A', code: 'MPPT100', category: 'controladores', price: 'Consultar', image: 'https://via.placeholder.com/300x200?text=Controlador+MPPT', desc: 'Controlador de carga solar MPPT 100A.' }
                 ];
                 let html = '<div style="display:grid; gap:15px;">';
-                products.forEach(p => {
-                    html += `<div style="background:white; padding:15px; border-radius:10px; border:1px solid #ddd;">
-                        <div><strong>${p.name}</strong><br><small>${p.category}</small></div>
-                        <div><span style="color:var(--primary);">${p.price}</span></div>
-                        <button onclick="consultarCatalogo('${p.name}', '${p.code}')" style="width:100%; background:var(--accent); color:white; border:none; padding:10px; margin-top:10px; border-radius:6px;">💬 Consultar</button>
-                    </div>`;
+                catalogProducts.forEach(p => {
+                    html += `
+                        <div style="background:white; padding:15px; border-radius:10px; border:1px solid #ddd;">
+                            <img src="${p.image}" alt="${p.name}" loading="lazy" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:10px;" onerror="this.src='https://via.placeholder.com/300x150?text=No+disponible'">
+                            <div><strong>${p.name}</strong><br><small>${p.category}</small></div>
+                            <div style="margin:10px 0; color:var(--gray); font-size:0.9rem;">${p.desc}</div>
+                            <div><span style="color:var(--primary); font-weight:bold;">${p.price}</span></div>
+                            <button onclick="consultarCatalogo('${p.name}', '${p.code}')" style="width:100%; background:var(--accent); color:white; border:none; padding:10px; margin-top:10px; border-radius:6px;">💬 Consultar</button>
+                        </div>
+                    `;
                 });
                 html += '</div>';
                 cat.innerHTML = html;
@@ -1076,6 +2296,8 @@
             let msg = `📋 *CONSULTA DE CATÁLOGO*\n\n`;
             if (trafficSource.type === 'partner') {
                 msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            } else {
+                msg += `📱 *Fuente:* Visita Directa\n\n`;
             }
             msg += `🏷️ *Producto:* ${name}\n🆔 *Código:* ${code}\n\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${code}`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -1090,6 +2312,27 @@
         window.switchTab = switchTab;
         window.consultarProducto = consultarProducto;
         window.consultarCatalogo = consultarCatalogo;
+        window.openPaymentModal = openPaymentModal;
+        window.closePaymentModal = closePaymentModal;
+        window.agregarAlCarrito = agregarAlCarrito;
+        window.checkoutCart = checkoutCart;
+        window.clearCart = clearCart;
+        window.cambiarCantidad = cambiarCantidad;
+        window.eliminarDelCarrito = eliminarDelCarrito;
+        window.mostrarDatosPago = mostrarDatosPago;
+        window.mostrarConfirmacionPago = mostrarConfirmacionPago;
+        window.volverPaso1 = volverPaso1;
+    </script>
+
+    <!-- ================== REGISTRO SERVICE WORKER (OFFLINE) ================== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registrado:', reg))
+                    .catch(err => console.log('Error al registrar SW:', err));
+            });
+        }
     </script>
 </body>
 </html>
