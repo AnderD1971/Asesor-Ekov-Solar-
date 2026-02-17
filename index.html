@@ -1525,7 +1525,8 @@
             if (partnerCode && PARTNERS_DATABASE[partnerCode]) {
                 trafficSource = { type: 'partner', partnerCode, partnerData: PARTNERS_DATABASE[partnerCode], welcomeMessageSent: false };
                 localStorage.setItem('ekov_partner_code', partnerCode);
-                if (!trafficSource.welcomeMessageSent) sendWelcomeMessage();
+                // Se ha eliminado la llamada a sendWelcomeMessage() para evitar la apertura automática de WhatsApp
+                // if (!trafficSource.welcomeMessageSent) sendWelcomeMessage();
                 showLinkSaverCard();
             } else {
                 trafficSource = { type: 'direct', partnerCode: null, partnerData: null, welcomeMessageSent: false };
@@ -1533,6 +1534,7 @@
             updateSourceUI();
         }
 
+        // La función sendWelcomeMessage se deja pero no se usa, por si se quiere reactivar en el futuro
         function sendWelcomeMessage() {
             if (trafficSource.type !== 'partner' || trafficSource.welcomeMessageSent) return;
             const now = new Date();
