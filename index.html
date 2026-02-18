@@ -292,71 +292,6 @@
             margin-right: 5px;
         }
         
-        /* ===== CONTENEDORES DE IMAGEN CON PADDING-BOTTOM ===== */
-        /* Para productos (relación 3:2) */
-        .product-image {
-            position: relative;
-            width: 100%;
-            padding-bottom: 66.67%;
-            background-color: #f5f5f5;
-            overflow: hidden;
-        }
-        
-        .product-image img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        /* Para miniaturas de YouTube (16:9) */
-        .tutorial-thumbnail {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background-color: #f0f0f0;
-            overflow: hidden;
-        }
-        
-        .tutorial-thumbnail img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Para catálogo WhatsApp (2:1, 300x150) */
-        .catalog-image {
-            position: relative;
-            width: 100%;
-            padding-bottom: 50%;
-            background-color: #f5f5f5;
-            overflow: hidden;
-        }
-        
-        .catalog-image img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Para imágenes del carrito (60x60) */
-        .cart-item-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            background-color: #f5f5f5;
-            flex-shrink: 0;
-        }
-        
         .tutorial-grid {
             display: grid;
             gap: 20px;
@@ -376,6 +311,13 @@
             box-shadow: var(--shadow);
         }
         
+        .tutorial-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+        
         .tutorial-info {
             padding: 15px;
         }
@@ -389,6 +331,7 @@
             color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 10px;
+            min-height: 40px; /* Altura mínima para evitar saltos */
         }
         
         .tutorial-link {
@@ -426,6 +369,20 @@
             box-shadow: var(--shadow-lg);
         }
         
+        .product-image {
+            width: 100%;
+            height: 200px; /* Altura fija */
+            background: #f0f0f0; /* Fondo mientras carga */
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin deformar */
+            display: block;
+        }
+        
         .product-info {
             padding: 20px;
             flex: 1;
@@ -445,6 +402,7 @@
             margin-bottom: 15px;
             font-size: 0.9rem;
             line-height: 1.4;
+            min-height: 60px; /* Altura mínima para 2 líneas */
         }
         
         .product-price {
@@ -1132,7 +1090,7 @@
                     
                     <div class="contact-item">
                         <i class="fab fa-whatsapp"></i>
-                        <a href="https://wa.me/584128399000">+58 412 839 9000 (Consultas)</a>
+                        <a href="https://wa.me/584128399000">+58 412 839 9000 (WhatsApp)</a>
                     </div>
                     
                     <div class="contact-item">
@@ -1166,8 +1124,72 @@
                     <p style="color: var(--gray);">Aprende a usar nuestra aplicación y descubre más sobre energía solar</p>
                 </div>
                 
-                <div class="tutorial-grid" id="tutorialGrid">
-                    <!-- Se llenará con JavaScript -->
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_bienvenida/maxresdefault.jpg" alt="Video de bienvenida" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Video de bienvenida</h4>
+                            <p>Conoce Ekov Solar y cómo podemos ayudarte a ahorrar energía.</p>
+                            <a href="https://youtu.be/placeholder_bienvenida" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_calculadora/maxresdefault.jpg" alt="Cómo usar la calculadora" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Cómo usar la calculadora</h4>
+                            <p>Aprende a dimensionar tu sistema solar paso a paso.</p>
+                            <a href="https://youtu.be/placeholder_calculadora" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_tienda/maxresdefault.jpg" alt="Guía de la tienda" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Guía de la tienda</h4>
+                            <p>Descubre cómo comprar productos y añadirlos al carrito.</p>
+                            <a href="https://youtu.be/placeholder_tienda" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_catalogo/maxresdefault.jpg" alt="Catálogo WhatsApp" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Catálogo WhatsApp</h4>
+                            <p>Consulta productos disponibles directamente por WhatsApp.</p>
+                            <a href="https://youtu.be/placeholder_catalogo" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_asesoria/maxresdefault.jpg" alt="Asesoría y proyectos" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Asesoría y proyectos</h4>
+                            <p>Conoce nuestros servicios de asesoría técnica personalizada.</p>
+                            <a href="https://youtu.be/placeholder_asesoria" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <img class="tutorial-thumbnail" src="https://img.youtube.com/vi/placeholder_pago/maxresdefault.jpg" alt="Proceso de compra y pago" loading="lazy" width="300" height="180" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'180\' viewBox=\'0 0 300 180\'%3E%3Crect width=\'300\' height=\'180\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin video%3C/text%3E%3C/svg%3E'">
+                        <div class="tutorial-info">
+                            <h4>Proceso de compra y pago</h4>
+                            <p>Aprende a finalizar tu compra y elegir el método de pago.</p>
+                            <a href="https://youtu.be/placeholder_pago" target="_blank" class="tutorial-link">
+                                Ver video <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -1308,13 +1330,12 @@
 
     <script>
         // ================== CONFIGURACIÓN ==================
-        const WHATSAPP_NUMBER = '584128399000'; // Número para consultas (sin 0 inicial)
-        const CATALOG_WHATSAPP_NUMBER = '584140548833'; // Número con catálogo WhatsApp Business
+        const WHATSAPP_NUMBER = '584128399000';
         const COMPANY_NAME = 'Ekov Solar';
         const APP_URL = window.location.origin + window.location.pathname;
         
-        // Placeholder local SVG (data URI) para imágenes que no cargan (300x200)
-        const PLACEHOLDER_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='14'%3E📷 Imagen no disponible%3C/text%3E%3C/svg%3E";
+        // Placeholder local en formato data URI para imágenes (SVG con texto "Sin imagen")
+        const PLACEHOLDER_SVG = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'16\'%3E📷 Sin imagen%3C/text%3E%3C/svg%3E';
         
         // ================== BASE DE DATOS DE ALIADOS ==================
         const PARTNERS_DATABASE = {
@@ -1334,7 +1355,7 @@
                 category: 'kits', 
                 price: 12500, 
                 description: 'Kit solar básico para iluminación y dispositivos esenciales. Ideal para respaldo en hogares.',
-                image: 'https://via.placeholder.com/300x200?text=Kit+Rescue+1000', // Reemplazar con imagen real
+                image: 'https://via.placeholder.com/300x200?text=Kit+Rescue+1000',
                 specs: ['Potencia: 1000W', 'Batería: 100Ah', 'Panel: 2x250W', 'Inversor: 1000W'],
                 whatsappId: 'EKOV1000' 
             },
@@ -1483,16 +1504,17 @@
         let artefactosSeleccionados = [];
         let recommendedKit = '', kitWhatsappId = '', kitDescription = '';
         let selectedProduct = null; // Para pago directo
+
+        // Carrito de compras
         let carrito = [];
 
         // ================== INICIALIZACIÓN ==================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Ekov Solar con imágenes estables');
+            console.log('🚀 Ekov Solar con tutoriales iniciado');
             detectTrafficSource();
             initNavigation();
             initStore();
             loadWhatsAppCatalog();
-            loadTutorials();
             cargarCarrito();
             actualizarContadorCarrito();
         });
@@ -1504,11 +1526,25 @@
             if (partnerCode && PARTNERS_DATABASE[partnerCode]) {
                 trafficSource = { type: 'partner', partnerCode, partnerData: PARTNERS_DATABASE[partnerCode], welcomeMessageSent: false };
                 localStorage.setItem('ekov_partner_code', partnerCode);
+                // Se ha eliminado la llamada a sendWelcomeMessage() para evitar la apertura automática de WhatsApp
+                // if (!trafficSource.welcomeMessageSent) sendWelcomeMessage();
                 showLinkSaverCard();
             } else {
                 trafficSource = { type: 'direct', partnerCode: null, partnerData: null, welcomeMessageSent: false };
             }
             updateSourceUI();
+        }
+
+        // La función sendWelcomeMessage se deja pero no se usa, por si se quiere reactivar en el futuro
+        function sendWelcomeMessage() {
+            if (trafficSource.type !== 'partner' || trafficSource.welcomeMessageSent) return;
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const appLink = `${APP_URL}?partner=${trafficSource.partnerCode}`;
+            let message = `🆕 *NUEVO CLIENTE DESDE QR DE ALIADO*\n\n📅 ${fecha} ⏰ ${hora}\n\n🏪 *Aliado:* ${trafficSource.partnerData.nombre}\n📍 ${trafficSource.partnerData.ubicacion}\n🆔 *Código:* ${trafficSource.partnerCode}\n\n📲 *ENLACE:* ${appLink}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+            trafficSource.welcomeMessageSent = true;
         }
 
         function showLinkSaverCard() {
@@ -1886,7 +1922,7 @@
             showStep(1); 
         }
 
-        // ================== WHATSAPP CONSULTA (usa número de consultas) ==================
+        // ================== WHATSAPP CONSULTA ==================
         function sendWA() {
             const now = new Date();
             const fecha = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -1923,19 +1959,19 @@
                 msg += `\n⚡ *Equipo recomendado:* ${document.getElementById('kit-name').innerText}\n`;
                 msg += `📝 *Detalle:* ${document.getElementById('kit-desc').innerText}\n`;
                 msg += `🆔 *Código:* ${kitWhatsappId}\n`;
-                msg += `🔗 *Catálogo:* https://wa.me/c/${CATALOG_WHATSAPP_NUMBER}/${kitWhatsappId}`;
+                msg += `🔗 *Catálogo:* https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
             } else {
                 const sectorNames = { 'hogar': 'Hogar', 'turismo': 'Hoteles', 'comercio': 'Comercio', 'agro': 'Agro', 'telecom': 'Telecom' };
                 let dispositivos = '';
                 artefactosSeleccionados.forEach(i => dispositivos += `• ${i.nombre}: ${i.cantidad}\n`);
-                const catalogoLink = `https://wa.me/c/${CATALOG_WHATSAPP_NUMBER}/${kitWhatsappId}`;
+                const catalogoLink = `https://wa.me/c/${WHATSAPP_NUMBER}/${kitWhatsappId}`;
                 msg += `🏢 *Sector:* ${sectorNames[selectedSector]}\n⚡ *Equipo:* ${recommendedKit}\n📊 *Consumo:* ${totalKWh.toFixed(1)} kWh/día\n🆔 *Código:* ${kitWhatsappId}\n🔗 *Catálogo:* ${catalogoLink}\n\n📋 *Dispositivos:*\n${dispositivos}\n📱 *Enlace:* ${catalogoLink}`;
             }
             
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // ================== TIENDA (con imágenes dimensionadas y placeholder local) ==================
+        // ================== TIENDA ==================
         function initStore() {
             renderStoreProducts(storeProducts);
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -1998,7 +2034,7 @@
                 msg += `📋 *Especificaciones:*\n`;
                 specs.forEach(s => msg += `   • ${s}\n`);
             }
-            msg += `\n🔗 Ver en catálogo: https://wa.me/c/${CATALOG_WHATSAPP_NUMBER}/${id}`;
+            msg += `\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${id}`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -2251,16 +2287,17 @@
                 catalogProducts.forEach(p => {
                     html += `
                         <div style="background:white; padding:15px; border-radius:10px; border:1px solid #ddd;">
-                            <div class="catalog-image">
-                                <img src="${p.image}" alt="${p.name}" loading="lazy" width="300" height="150" onerror="this.src='${PLACEHOLDER_SVG}'">
-                            </div>
+                            <img src="${p.image}" 
+                                 alt="${p.name}" 
+                                 width="300" 
+                                 height="150" 
+                                 loading="lazy" 
+                                 style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:10px;" 
+                                 onerror="this.src='${PLACEHOLDER_SVG}'">
                             <div><strong>${p.name}</strong><br><small>${p.category}</small></div>
                             <div style="margin:10px 0; color:var(--gray); font-size:0.9rem;">${p.desc}</div>
                             <div><span style="color:var(--primary); font-weight:bold;">${p.price}</span></div>
-                            <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                <button onclick="window.open('https://wa.me/c/${CATALOG_WHATSAPP_NUMBER}/${p.code}', '_blank')" class="btn-outline" style="flex:1;">📦 Ver en catálogo</button>
-                                <button onclick="consultarProductoCatalogo('${p.name}', '${p.code}')" class="whatsapp-button" style="flex:1;">💬 Consultar</button>
-                            </div>
+                            <button onclick="consultarCatalogo('${p.name}', '${p.code}')" style="width:100%; background:var(--accent); color:white; border:none; padding:10px; margin-top:10px; border-radius:6px;">💬 Consultar</button>
                         </div>
                     `;
                 });
@@ -2269,43 +2306,15 @@
             }, 1000);
         }
 
-        // Función para consultar un producto del catálogo
-        function consultarProductoCatalogo(name, code) {
-            let msg = `Hola, vi el producto ${name} (${code}) en su catálogo y me gustaría más información.`;
+        function consultarCatalogo(name, code) {
+            let msg = `📋 *CONSULTA DE CATÁLOGO*\n\n`;
             if (trafficSource.type === 'partner') {
-                msg += `\n\nVengo del aliado ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode}).`;
+                msg += `🏪 *Aliado:* ${trafficSource.partnerData.nombre} (${trafficSource.partnerCode})\n📍 ${trafficSource.partnerData.ubicacion}\n\n`;
+            } else {
+                msg += `📱 *Fuente:* Visita Directa\n\n`;
             }
+            msg += `🏷️ *Producto:* ${name}\n🆔 *Código:* ${code}\n\n🔗 https://wa.me/c/${WHATSAPP_NUMBER}/${code}`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // ================== TUTORIALES ==================
-        function loadTutorials() {
-            const tutorials = [
-                { id: 'bienvenida', title: 'Video de bienvenida', desc: 'Conoce Ekov Solar y cómo podemos ayudarte a ahorrar energía.' },
-                { id: 'calculadora', title: 'Cómo usar la calculadora', desc: 'Aprende a dimensionar tu sistema solar paso a paso.' },
-                { id: 'tienda', title: 'Guía de la tienda', desc: 'Descubre cómo comprar productos y añadirlos al carrito.' },
-                { id: 'catalogo', title: 'Catálogo WhatsApp', desc: 'Consulta productos disponibles directamente por WhatsApp.' },
-                { id: 'asesoria', title: 'Asesoría y proyectos', desc: 'Conoce nuestros servicios de asesoría técnica personalizada.' },
-                { id: 'pago', title: 'Proceso de compra y pago', desc: 'Aprende a finalizar tu compra y elegir el método de pago.' }
-            ];
-            const container = document.getElementById('tutorialGrid');
-            if (!container) return;
-            let html = '';
-            tutorials.forEach(t => {
-                html += `
-                    <div class="tutorial-card">
-                        <div class="tutorial-thumbnail">
-                            <img src="https://img.youtube.com/vi/placeholder_${t.id}/maxresdefault.jpg" alt="${t.title}" loading="lazy" width="300" height="169" onerror="this.src='${PLACEHOLDER_SVG}'">
-                        </div>
-                        <div class="tutorial-info">
-                            <h4>${t.title}</h4>
-                            <p>${t.desc}</p>
-                            <a href="https://youtu.be/placeholder_${t.id}" target="_blank" class="tutorial-link">Ver video <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
         }
 
         // Exponer funciones globales
@@ -2316,7 +2325,7 @@
         window.sendWA = sendWA;
         window.switchTab = switchTab;
         window.consultarProducto = consultarProducto;
-        window.consultarProductoCatalogo = consultarProductoCatalogo;
+        window.consultarCatalogo = consultarCatalogo;
         window.openPaymentModal = openPaymentModal;
         window.closePaymentModal = closePaymentModal;
         window.agregarAlCarrito = agregarAlCarrito;
